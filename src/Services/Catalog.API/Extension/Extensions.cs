@@ -1,5 +1,7 @@
+using Catalog.API.Infra;
 using Catalog.API.Infra.Data;
 using Microsoft.EntityFrameworkCore;
+using Shared.EF.Database;
 
 namespace Catalog.API.Extension;
 
@@ -11,6 +13,8 @@ internal static class Extensions
         {
             opt.UseNpgsql(configuration.GetConnectionString("Postgresql"));
         });
+
+        services.AddMigration<CatalogDbContext, BooksCatalogSeeder>();
         return services;
     }
 }
