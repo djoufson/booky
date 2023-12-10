@@ -4,8 +4,8 @@ services:
   catalog-api:
     container_name: catalog-api
     build:
-      context: src/Services/Catalog.API
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/Services/Catalog.API/Dockerfile
     depends_on:
       - catalog-db
     ports:
