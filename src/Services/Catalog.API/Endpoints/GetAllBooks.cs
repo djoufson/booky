@@ -1,3 +1,4 @@
+using Catalog.API.Contracts.Dtos;
 using Catalog.API.Infra.Data;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -29,25 +30,4 @@ public partial class CatalogEndpoints
         )).ToArray();
         return TypedResults.Ok(response);
     }
-
-    public record BookDto(
-        string Id,
-        string Title,
-        string Description,
-        decimal Price,
-        decimal? OldPrice,
-        AuthorDto Author,
-        DateTime CreatedAt,
-        DateTime UpdatedAt
-    );
-
-    public record AuthorDto(
-        string Id,
-        string UserName,
-        string FirstName,
-        string? LastName,
-        string Email,
-        string Bio,
-        string? ImageUrl
-    );
 }
