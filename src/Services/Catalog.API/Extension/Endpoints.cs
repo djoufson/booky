@@ -9,6 +9,7 @@ internal static class Endpoints
         app.MapGet("/", CatalogEndpoints.GetAllBooks);
         app.MapPost("/", CatalogEndpoints.AddNewBook);
         app.MapDelete("/{id:Guid}", CatalogEndpoints.DeleteBook);
+        app.MapPut("/{id:Guid}", CatalogEndpoints.EditBookInfos);
         return app;
     }
 }

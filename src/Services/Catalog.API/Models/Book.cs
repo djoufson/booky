@@ -78,4 +78,34 @@ internal class Book
     {
         return _tags.Remove(tag);
     }
+
+    internal bool UpdateInfos(string title, string description, decimal price, decimal? oldPrice)
+    {
+        bool updated = false;
+        if(!string.IsNullOrWhiteSpace(title))
+        {
+            Title = title;
+            updated = true;
+        }
+
+        if(!string.IsNullOrWhiteSpace(description))
+        {
+            Description = description;
+            updated = true;
+        }
+
+        if(price > 0 && price != Price)
+        {
+            Price = price;
+            updated = true;
+        }
+
+        if(oldPrice > 0 && oldPrice != OldPrice)
+        {
+            OldPrice = oldPrice;
+            updated = true;
+        }
+
+        return updated;
+    }
 }
