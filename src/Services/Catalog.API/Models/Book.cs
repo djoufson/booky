@@ -24,7 +24,8 @@ internal class Book
         decimal? oldPrice,
         Author author,
         DateTime createdAt,
-        DateTime updatedAt)
+        DateTime updatedAt,
+        BookTag[] tags)
     {
         Id = id;
         Title = title;
@@ -35,6 +36,7 @@ internal class Book
         UpdatedAt = updatedAt;
         Author = author;
         AuthorId = author.Id;
+        _tags = [.. tags];
     }
 
     #pragma warning disable CS8618
@@ -50,7 +52,8 @@ internal class Book
         decimal? oldPrice,
         Author author,
         DateTime createdAt,
-        DateTime updatedAt)
+        DateTime updatedAt,
+        params BookTag[] tags)
     {
         return new Book(
             BookId.Create(),
@@ -60,7 +63,8 @@ internal class Book
             oldPrice,
             author,
             createdAt,
-            updatedAt);
+            updatedAt,
+            tags);
     }
 
     public void Tag(BookTag tag)

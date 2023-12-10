@@ -1,6 +1,6 @@
 namespace Catalog.API.Models;
 
-internal record BookTag(
-    int Id,
-    string Tag
-);
+internal record BookTag(string Tag)
+{
+    public int Id { get; private set; }
+}
