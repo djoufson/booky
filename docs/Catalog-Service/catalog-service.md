@@ -35,7 +35,7 @@ To achieve those, we define the following models (Following C# types)
     "email": "string",
     "firstname": "string",
     "lastname": "string",
-    "description": "string",
+    "bio": "string",
     "image-url": "string"
 }
 ```
