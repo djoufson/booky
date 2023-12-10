@@ -1,0 +1,37 @@
+version: '3.3'
+
+services:
+  catalog-api:
+    container_name: catalog-api
+    build:
+      context: src/Services/Catalog.API
+      dockerfile: Dockerfile
+    depends_on:
+      - catalog-db
+    ports:
+      - 5001:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__Postgresql=User Id=postgres;Password=postgres;Server=postgres_db;Port=5432;Database=Sms;IntegratedSecurity=true;Pooling=true;
+      - HashSettings__Salt=my_super_secret_key_for_hashes_production
+      - JwtSettings__Issuer=SMS.Api
+      - JwtSettings__Audience=SMS.Client
+      - JwtSettings__ExpirationInMinutes=30
+      - JwtSettings__SecretKey=my_super_secret_key_for_jwt_production
+
+  catalog-db:
+    image: postgres
+    container_name: catalog-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 5433:5433
+    restart: always
+    volumes:
+      - postgresdata-catalog:/var/lib/postgresql/data
+
+volumes:
+  postgresdata-catalog:
