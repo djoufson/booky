@@ -2,7 +2,7 @@ using Catalog.API.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCatalogServices();
+builder.Services.AddCatalogServices(builder.Configuration);
 builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

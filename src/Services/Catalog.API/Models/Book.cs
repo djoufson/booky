@@ -37,6 +37,12 @@ internal class Book
         AuthorId = author.Id;
     }
 
+    #pragma warning disable CS8618
+    private Book()
+    {
+    }
+    #pragma warning restore
+
     public static Book Create(
         string title,
         string description,

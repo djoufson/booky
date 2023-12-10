@@ -11,6 +11,12 @@ internal class Author
     public string Bio { get; set; }
     public string? ImageUrl { get; set; }
 
+    #pragma warning disable CS8618
+    private Author()
+    {
+    }
+    #pragma warning restore
+
     private Author(
         AuthorId id,
         UserName userName,

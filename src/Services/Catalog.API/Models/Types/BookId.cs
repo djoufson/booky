@@ -1,6 +1,6 @@
 namespace Catalog.API.Models.Types;
 
-internal record BookId(Guid Id)
+internal record BookId(Guid Value)
 {
     internal static BookId Create()
     {
