@@ -1,4 +1,3 @@
 namespace Catalog.API.Models.Types;
 
-// Perform email validation
-internal record UserName(string Name);
+internal record UserName(string Value);

@@ -1,3 +1,3 @@
 namespace Catalog.API.Models.Types;
 
-internal record Name(string FirstName, string? LastName);
+internal record Name(string First, string? Last);

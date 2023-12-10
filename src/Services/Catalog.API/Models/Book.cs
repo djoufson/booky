@@ -56,4 +56,16 @@ internal class Book
             createdAt,
             updatedAt);
     }
+
+    public void Tag(BookTag tag)
+    {
+        if(_tags.Contains(tag))
+            return;
+        _tags.Add(tag);
+    }
+
+    public bool UnTag(BookTag tag)
+    {
+        return _tags.Remove(tag);
+    }
 }
