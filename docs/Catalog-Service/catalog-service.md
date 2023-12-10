@@ -1,10 +1,13 @@
 # Catalog Service
 
+## Core Features
 The catalog service has multiple responsibilities, listed as follows
 
 - **Store books information**
 - **Filter books and make searches**
 - **Upload or edit books**
+
+## Domain
 
 To achieve those, we define the following models (Following C# types)
 
@@ -44,3 +47,12 @@ To achieve those, we define the following models (Following C# types)
     "tag": "string"
 }
 ```
+## Tech stack
+
+For this service, we opted for this tech stack:
+
+- **API**: REST-full `.NET 8 Minimal API` to interact with
+- **Database**: `Postgresql` database
+- **Messaging**: Listening to a `RabbitMQ` messaging service
+
+> Note: This tech stack is the one used in production environment
