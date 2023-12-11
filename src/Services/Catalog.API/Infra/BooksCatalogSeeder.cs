@@ -78,18 +78,18 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
                 romanceTag
             );
 
-            var lastAuthor = await context.Authors.LastAsync();
+            // var lastAuthor = await context.Authors.FindAsync();
 
-            var book3 = Book.Create(
-                "Previous Halloween, Last Halloween",
-                "Dive deep inside the weirdest Halloween ever... Boo",
-                600,
-                null,
-                lastAuthor,
-                DateTime.UtcNow,
-                DateTime.UtcNow,
-                horrorTag
-            );
+            // var book3 = Book.Create(
+            //     "Previous Halloween, Last Halloween",
+            //     "Dive deep inside the weirdest Halloween ever... Boo",
+            //     600,
+            //     null,
+            //     lastAuthor,
+            //     DateTime.UtcNow,
+            //     DateTime.UtcNow,
+            //     horrorTag
+            // );
 
             await context.AddRangeAsync(book1, book2);
             await context.SaveChangesAsync();

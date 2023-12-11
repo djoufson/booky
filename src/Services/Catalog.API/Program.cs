@@ -2,10 +2,8 @@ using Catalog.API.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCatalogServices(builder.Configuration);
-builder.Services.AddProblemDetails();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.AddServiceDefaults();
+builder.AddCatalogServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -17,6 +15,8 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+
+app.MapDefaultEndpoints();
 
 app.MapGroup("/api/catalog")
     .WithTags("Catalog API")

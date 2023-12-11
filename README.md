@@ -1,6 +1,6 @@
 # Booky 📚
 
-Booky is an opinionated open source project to showcase microservices best practices from (Djoufson) personal experience and preferences.
+Booky is an opinionated open source project to showcase microservices best practices from my (Djoufson) personal experience and preferences.
 
 # Project overview
 

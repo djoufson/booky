@@ -1,20 +1,25 @@
 using Catalog.API.Infra;
 using Catalog.API.Infra.Data;
-using Microsoft.EntityFrameworkCore;
 using Shared.EF.Database;
 
 namespace Catalog.API.Extension;
 
 internal static class Extensions
 {
-    public static IServiceCollection AddCatalogServices(this IServiceCollection services, IConfiguration configuration)
+    public static IHostApplicationBuilder AddCatalogServices(this IHostApplicationBuilder builder, IConfiguration configuration)
     {
-        services.AddDbContext<CatalogDbContext>(opt =>
-        {
-            opt.UseNpgsql(configuration.GetConnectionString("Postgresql"));
-        });
+        // The commented code was used without Aspire
+        // services.AddDbContext<CatalogDbContext>(opt =>
+        // {
+        //     opt.UseNpgsql(configuration.GetConnectionString("Postgresql"));
+        // });
 
-        services.AddMigration<CatalogDbContext, BooksCatalogSeeder>();
-        return services;
+        builder.AddNpgsqlDbContext<CatalogDbContext>("CatalogDb");
+        builder.Services.AddMigration<CatalogDbContext, BooksCatalogSeeder>();
+        
+        builder.Services.AddProblemDetails();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+        return builder;
     }
 }
