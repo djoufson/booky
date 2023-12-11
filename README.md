@@ -15,7 +15,7 @@ and the current status of each feature
 | Feature                         | Details                                                                                                                     | Status         |
 |:--------------------------------|:----------------------------------------------------------------------------------------------------------------------------|:---------------|
 | Authentication                  | Authenticate th users with various providers                                                                                | ⛔️ Not started |
-| Visit the books catalog         | Filter through the list of available books                                                                                  | ⛔️ Not started |
+| Visit the books catalog         | Filter through the list of available books                                                                                  | 〽️ In progress |
 | Purchase and download a book    | Initiate a an order request, and purchase the selected book. After the purchase, the user will be able to download the book | ⛔️ Not started |
 | Upgrade plan to become a author | The author role gives permission to upload books and earn money on the platform by selling those books                      | ⛔️ Not started |
 | Make CRUD operations on a book  | Each author is able at any time to upload, delete or update a book on the platform, following some rules and restrictions   | ⛔️ Not started |
@@ -29,6 +29,48 @@ The below list describes what are the microservices involved in our system and t
 | Catalog Service  | This service sort of the books repository.                                                                   |
 | Identity Service | Responsible for users management, authentication and access control                                          |
 | Order Service    | Responsible for processing order requests from users, as well as making payments using a third party service |
+
+# Getting started
+
+Do you want to try this on your own? Here are the steps to follow to do so.
+
+## Prerequisites
+
+- Clone the booky repository: https://github.com/Djoufson/booky
+- (Windows only) Install Visual Studio. Visual Studio contains tooling support for .NET Aspire that you will want to have. [Visual Studio 2022 version 17.9 Preview](https://visualstudio.microsoft.com/vs/preview/). 
+
+    During installation, ensure that the following are selected:
+    - `ASP.NET and web development` workload.
+    - `.NET Aspire SDK` component in `Individual components`.
+
+- Install the latest [.NET 8 SDK](https://github.com/dotnet/installer#installers-and-binaries)
+- On Mac/Linux (or if not using Visual Studio), install the Aspire workload with the following commands:
+    ```powershell
+    dotnet workload update
+    dotnet workload install aspire
+    dotnet restore booky.Web.slnf
+    ```
+- Install & start Docker Desktop:  https://docs.docker.com/engine/install/
+
+## Running the solution
+
+> [!WARNING]
+> Remember to ensure that Docker is started
+
+* (Windows only) Run the application from Visual Studio:
+  - Open the `booky.Web.slnf` file in Visual Studio
+  - Ensure that `booky.AppHost.csproj` is your startup project
+  - Hit Ctrl-F5 to launch Aspire
+
+
+* Or run the application from your terminal:
+    ```powershell
+    dotnet run --project src/eShop.AppHost/eShop.AppHost.csproj
+    ```
+    then look for lines like this in the console output in order to find the URL to open the Aspire dashboard:
+    ```sh
+    Now listening on: http://localhost:15040
+    ```
 
 # Credits
 
