@@ -12,13 +12,13 @@ Additionally, authors can subscribe to a plan and upload their books on the plat
 The below list describes a brief overview of what the system should be capable of,
 and the current status of each feature
 
-| Feature                         | Details                                                                                                                     | Status         |
-|:--------------------------------|:----------------------------------------------------------------------------------------------------------------------------|:---------------|
-| Authentication                  | Authenticate th users with various providers                                                                                | ⛔️ Not started |
-| Visit the books catalog         | Filter through the list of available books                                                                                  | 〽️ In progress |
-| Purchase and download a book    | Initiate a an order request, and purchase the selected book. After the purchase, the user will be able to download the book | ⛔️ Not started |
-| Upgrade plan to become a author | The author role gives permission to upload books and earn money on the platform by selling those books                      | ⛔️ Not started |
-| Make CRUD operations on a book  | Each author is able at any time to upload, delete or update a book on the platform, following some rules and restrictions   | ⛔️ Not started |
+| Feature                         | Details                                                                                                                     | Status          |
+|:--------------------------------|:----------------------------------------------------------------------------------------------------------------------------|:----------------|
+| Authentication                  | Authenticate th users with various providers                                                                                | 〽️️ In progress  |
+| Visit the books catalog         | Filter through the list of available books                                                                                  | 〽️ In progress  |
+| Purchase and download a book    | Initiate a an order request, and purchase the selected book. After the purchase, the user will be able to download the book | ⛔️ Not started  |
+| Upgrade plan to become a author | The author role gives permission to upload books and earn money on the platform by selling those books                      | ⛔️ Not started  |
+| Make CRUD operations on a book  | Each author is able at any time to upload, delete or update a book on the platform, following some rules and restrictions   | ⛔️ Not started  |
 
 # Micro-services
 
@@ -54,7 +54,7 @@ Do you want to try this on your own? Here are the steps to follow to do so.
 
 ## Running the solution
 
-> [!WARNING]
+> ⚠️
 > Remember to ensure that Docker is started
 
 * (Windows only) Run the application from Visual Studio:
