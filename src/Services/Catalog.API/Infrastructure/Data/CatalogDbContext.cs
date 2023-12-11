@@ -27,10 +27,12 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
         EF.CompileAsyncQuery((CatalogDbContext ctx, string query, int pageNumber, int pageSize) => ctx.Books
             .AsNoTracking()
             .Where(b =>
-                b.Title.Contains(query) ||
-                b.Author.Name.First.Contains(query) ||
-                b.Tags.Select(t => t.Tag).Contains(query) ||
-                (b.Author.Name.Last == null) || b.Author.Name.Last.Contains(query))
+                b.Title.ToLower().Contains(query.ToLower()) ||
+                b.Author.Name.First.ToLower().Contains(query.ToLower()) ||
+                b.Tags.Select(t => t.Tag.ToLower()).Any(t => t.Contains(query.ToLower())) ||
+                (b.Author.Name.Last == null) || b.Author.Name.Last.ToLower().Contains(query.ToLower()))
             .Skip(pageSize * (pageNumber - 1))
+            .Include(b => b.Author)
+            .Include(b => b.Tags)
             .Take(pageSize));
 }
