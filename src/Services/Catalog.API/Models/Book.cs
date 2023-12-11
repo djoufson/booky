@@ -79,16 +79,16 @@ internal class Book
         return _tags.Remove(tag);
     }
 
-    internal bool UpdateInfos(string title, string description, decimal price, decimal? oldPrice)
+    internal bool UpdateInfos(string title = "", string description = "", decimal price = 0, decimal? oldPrice = 0)
     {
         bool updated = false;
-        if(!string.IsNullOrWhiteSpace(title))
+        if(!string.IsNullOrWhiteSpace(title) && !Title.Equals(title))
         {
             Title = title;
             updated = true;
         }
 
-        if(!string.IsNullOrWhiteSpace(description))
+        if(!string.IsNullOrWhiteSpace(description) && !Description.Equals(description))
         {
             Description = description;
             updated = true;
