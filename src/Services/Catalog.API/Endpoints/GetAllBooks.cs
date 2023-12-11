@@ -1,6 +1,6 @@
 using Catalog.API.Contracts.Dtos;
+using Catalog.API.Extension;
 using Catalog.API.Infra.Data;
-using Catalog.API.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +16,7 @@ public partial class CatalogEndpoints
         CatalogDbContext context,
         ILogger<CatalogEndpoints> logger)
     {
-        var books = await ToListAsync(CatalogDbContext.GetAllBooksQuery(context, pageNumber, pageSize));
+        var books = await CatalogDbContext.GetAllBooksQuery(context, pageNumber, pageSize).ToListAsync();
 
         var response = books.Select(b => new BookDto(
             b.Id.Value.ToString(),
@@ -38,16 +38,5 @@ public partial class CatalogEndpoints
             b.Tags.Select(t => t.Tag).ToArray()
         )).ToArray();
         return TypedResults.Ok(response);
-    }
-
-    private static async Task<List<T>> ToListAsync<T>(IAsyncEnumerable<T> asyncEnumerable)
-    {
-        var results = new List<T>();
-        await foreach (var item in asyncEnumerable)
-        {
-            results.Add(item);
-        }
-
-        return results;
     }
 }
