@@ -51,10 +51,11 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
 
         if (!await context.Books.AnyAsync())
         {
-            var horrorTag = await context.Tags.FirstOrDefaultAsync(t => t.Tag == "horror") ?? new BookTag("horror");
-            var romanceTag = await context.Tags.FirstOrDefaultAsync(t => t.Tag == "romance") ?? new BookTag("romance");
-            var theatreTag = await context.Tags.FirstOrDefaultAsync(t => t.Tag == "theatre") ?? new BookTag("theatre");
-            var firstAuthor = await context.Authors.FirstAsync();
+            var horrorTag = await context.Tags.OrderBy(t => t.Id).FirstOrDefaultAsync(t => t.Tag == "horror") ?? new BookTag("horror");
+            var romanceTag = await context.Tags.OrderBy(t => t.Id).FirstOrDefaultAsync(t => t.Tag == "romance") ?? new BookTag("romance");
+            var theatreTag = await context.Tags.OrderBy(t => t.Id).FirstOrDefaultAsync(t => t.Tag == "theatre") ?? new BookTag("theatre");
+            var authors = await context.Authors.ToArrayAsync();
+            var firstAuthor = authors.OrderBy(a => a.Id.Value).First();
             var book1 = Book.Create(
                 "Figaro's wedding",
                 "The incredible wedding ceremony of Figaro",
@@ -78,20 +79,20 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
                 romanceTag
             );
 
-            // var lastAuthor = await context.Authors.FindAsync();
+            var lastAuthor = authors.OrderBy(a => a.Id.Value).Last();
+            var book3 = Book.Create(
+                "Previous Halloween, Last Halloween",
+                "Dive deep inside the weirdest Halloween ever... Boo",
+                600,
+                null,
+                lastAuthor,
+                DateTime.UtcNow,
+                DateTime.UtcNow,
+                horrorTag,
+                romanceTag
+            );
 
-            // var book3 = Book.Create(
-            //     "Previous Halloween, Last Halloween",
-            //     "Dive deep inside the weirdest Halloween ever... Boo",
-            //     600,
-            //     null,
-            //     lastAuthor,
-            //     DateTime.UtcNow,
-            //     DateTime.UtcNow,
-            //     horrorTag
-            // );
-
-            await context.AddRangeAsync(book1, book2);
+            await context.AddRangeAsync(book1, book2, book3);
             await context.SaveChangesAsync();
         }
     }
