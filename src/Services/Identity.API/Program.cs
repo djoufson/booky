@@ -1,4 +1,5 @@
 using Identity.API.Extension;
+using Identity.API.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,5 +18,14 @@ if (app.Environment.IsDevelopment())
 // app.UseHttpsRedirection();
 
 app.MapDefaultEndpoints();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app
+    .MapGroup("account")
+    .WithTags("Identity")
+    .MapIdentityApi<ApplicationUser>();
 
 app.Run();
