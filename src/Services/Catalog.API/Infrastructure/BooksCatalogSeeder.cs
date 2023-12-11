@@ -88,8 +88,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
                 lastAuthor,
                 DateTime.UtcNow,
                 DateTime.UtcNow,
-                horrorTag,
-                romanceTag
+                horrorTag
             );
 
             await context.AddRangeAsync(book1, book2, book3);
