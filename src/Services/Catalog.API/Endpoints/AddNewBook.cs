@@ -59,7 +59,8 @@ public partial class CatalogEndpoints
                 bookEntity.Author.ImageUrl
             ),
             bookEntity.CreatedAt,
-            bookEntity.UpdatedAt
+            bookEntity.UpdatedAt,
+            bookEntity.Tags.Select(b => b.Tag).ToArray()
         );
         return TypedResults.Ok(bookDto);
     }

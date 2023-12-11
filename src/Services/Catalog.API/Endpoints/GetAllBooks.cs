@@ -10,9 +10,11 @@ public partial class CatalogEndpoints
 {
     // https://learn.microsoft.com/ef/core/performance/advanced-performance-topics#compiled-queries
     private static readonly Func<CatalogDbContext, IAsyncEnumerable<Book>> s_getCatalogQuery =
-        EF.CompileAsyncQuery((CatalogDbContext ctx) => ctx.Books.AsNoTracking());
+        EF.CompileAsyncQuery((CatalogDbContext ctx) => ctx.Books
+            .AsNoTracking()
+            .Include(b => b.Author));
 
-    public static async Task<Results<Ok<BookDto[]>, BadRequest>> GetAllBooks(CatalogDbContext context)
+    public static async Task<Results<Ok<BookDto[]>, BadRequest>> GetAllBooks(CatalogDbContext context, ILogger<CatalogEndpoints> logger)
     {
         var books = await ToListAsync(s_getCatalogQuery(context));
 
@@ -32,7 +34,8 @@ public partial class CatalogEndpoints
                 b.Author.ImageUrl
             ),
             b.CreatedAt,
-            b.UpdatedAt
+            b.UpdatedAt,
+            b.Tags.Select(t => t.Tag).ToArray()
         )).ToArray();
         return TypedResults.Ok(response);
     }

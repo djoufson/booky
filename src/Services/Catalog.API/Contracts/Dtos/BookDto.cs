@@ -8,5 +8,6 @@ public record BookDto(
     decimal? OldPrice,
     AuthorDto Author,
     DateTime CreatedAt,
-    DateTime UpdatedAt
+    DateTime UpdatedAt,
+    string[] Tags
 );
