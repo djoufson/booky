@@ -9,14 +9,14 @@ namespace Catalog.API.Endpoints;
 public partial class CatalogEndpoints
 {
     // https://learn.microsoft.com/ef/core/performance/advanced-performance-topics#compiled-queries
-    private static readonly Func<CatalogDbContext, IAsyncEnumerable<Book>> s_getCatalogQuery =
-        EF.CompileAsyncQuery((CatalogDbContext ctx) => ctx.Books
-            .AsNoTracking()
-            .Include(b => b.Author));
 
-    public static async Task<Results<Ok<BookDto[]>, BadRequest>> GetAllBooks(CatalogDbContext context, ILogger<CatalogEndpoints> logger)
+    public static async Task<Results<Ok<BookDto[]>, BadRequest>> GetAllBooks(
+        int pageNumber,
+        int pageSize,
+        CatalogDbContext context,
+        ILogger<CatalogEndpoints> logger)
     {
-        var books = await ToListAsync(s_getCatalogQuery(context));
+        var books = await ToListAsync(CatalogDbContext.GetAllBooksQuery(context, pageNumber, pageSize));
 
         var response = books.Select(b => new BookDto(
             b.Id.Value.ToString(),
