@@ -1,0 +1,12 @@
+{
+  "solution": {
+    "path": "booky.sln",
+    "projects": [
+      "src\\Services\\Catalog.API\\Catalog.API.csproj",
+      "src\\Shared\\Shared.csproj",
+      "src\\Aspire\\Aspire.AppHost\\Aspire.AppHost.csproj",
+      "src\\Aspire\\Aspire.ServiceDefaults\\Aspire.ServiceDefaults.csproj",
+      "tests\\Catalog.UnitTests\\Catalog.UnitTests.csproj"
+    ]
+  }
+}
