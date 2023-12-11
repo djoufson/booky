@@ -3,7 +3,7 @@ using Catalog.API.Models.Types;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Catalog.API.Infra.Configurations;
+namespace Catalog.API.Infrastructure.Configurations;
 
 internal class BookConfiguration : IEntityTypeConfiguration<Book>
 {

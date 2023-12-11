@@ -4,13 +4,13 @@ using Catalog.API.Models.Types;
 using Microsoft.EntityFrameworkCore;
 using Shared.EF.Database;
 
-namespace Catalog.API.Infra;
+namespace Catalog.API.Infrastructure;
 
 internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
 {
     public async Task SeedAsync(CatalogDbContext context)
     {
-        if(!await context.Tags.AnyAsync())
+        if (!await context.Tags.AnyAsync())
         {
             var horrorTag = new BookTag("horror");
             var romanceTag = new BookTag("romance");
@@ -19,7 +19,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
             await context.SaveChangesAsync();
         }
 
-        if(!await context.Authors.AnyAsync())
+        if (!await context.Authors.AnyAsync())
         {
             Author[] authors = [
                 Author.Create(
@@ -49,7 +49,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
             await context.SaveChangesAsync();
         }
 
-        if(!await context.Books.AnyAsync())
+        if (!await context.Books.AnyAsync())
         {
             var horrorTag = await context.Tags.FirstOrDefaultAsync(t => t.Tag == "horror") ?? new BookTag("horror");
             var romanceTag = await context.Tags.FirstOrDefaultAsync(t => t.Tag == "romance") ?? new BookTag("romance");
