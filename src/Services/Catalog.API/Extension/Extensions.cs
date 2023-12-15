@@ -16,7 +16,7 @@ internal static class Extensions
 
         builder.AddNpgsqlDbContext<CatalogDbContext>("CatalogDb");
         builder.Services.AddMigration<CatalogDbContext, BooksCatalogSeeder>();
-        
+
         builder.Services.AddProblemDetails();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();

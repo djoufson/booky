@@ -1,3 +1,4 @@
+using Identity.API.Apis;
 using Identity.API.Extension;
 using Identity.API.Models;
 
@@ -27,5 +28,7 @@ app
     .MapGroup("account")
     .WithTags("Identity")
     .MapIdentityApi<ApplicationUser>();
+
+app.MapIdentityEndpoints();
 
 app.Run();
