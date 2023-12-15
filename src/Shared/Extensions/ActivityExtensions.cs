@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Shared.EF.Database;
+namespace Shared.Extensions;
 
 public static class ActivityExtensions
 {

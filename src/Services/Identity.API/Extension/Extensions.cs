@@ -3,6 +3,7 @@ using Identity.API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared.EF.Database;
+using Shared.Extensions;
 
 namespace Identity.API.Extension;
 

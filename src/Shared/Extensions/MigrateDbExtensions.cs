@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Shared.EF.Database;
 
-namespace Shared.EF.Database;
+namespace Shared.Extensions;
 
 public static class MigrateDbExtensions
 {

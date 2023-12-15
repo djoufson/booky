@@ -1,6 +1,6 @@
 using Catalog.API.Infra.Data;
 using Catalog.API.Infrastructure;
-using Shared.EF.Database;
+using Shared.Extensions;
 
 namespace Catalog.API.Extension;
 
