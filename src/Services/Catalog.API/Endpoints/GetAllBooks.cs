@@ -11,10 +11,9 @@ public partial class CatalogEndpoints
     // https://learn.microsoft.com/ef/core/performance/advanced-performance-topics#compiled-queries
 
     public static async Task<Results<Ok<BookDto[]>, BadRequest>> GetAllBooks(
-        int pageNumber,
-        int pageSize,
         CatalogDbContext context,
-        ILogger<CatalogEndpoints> logger)
+        int pageNumber = 1,
+        int pageSize = 20)
     {
         var books = await CatalogDbContext.GetAllBooksQuery(context, pageNumber, pageSize).ToListAsync();
 
