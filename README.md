@@ -65,7 +65,7 @@ Do you want to try this on your own? Here are the steps to follow to do so.
 
 * Or run the application from your terminal:
     ```powershell
-    dotnet run --project src/eShop.AppHost/eShop.AppHost.csproj
+    dotnet run --project src/Aspire/Aspire.AppHost/Aspire.AppHost.csproj
     ```
     then look for lines like this in the console output in order to find the URL to open the Aspire dashboard:
     ```sh
