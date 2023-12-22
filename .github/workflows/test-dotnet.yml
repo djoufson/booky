@@ -14,20 +14,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-    - name: Set up .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '8.x'
-        include-prerelease: true
+      - name: Setup .NET (global.json)
+        uses: actions/setup-dotnet@v3
 
-    - name: Restore Dependencies
-      run: dotnet restore
+      - name: Update Workloads
+        run: dotnet workload update
 
-    - name: Build
-      run: dotnet build --configuration Release
+      - name: Install Workloads
+        run: dotnet workload install aspire
 
-    - name: Run Tests
-      run: dotnet test booky.Web.slnf --configuration Release --no-build
+      - name: Build 
+        run: dotnet build booky.Web.slnf
+
+      - name: Test
+        run: dotnet test booky.Web.slnf
