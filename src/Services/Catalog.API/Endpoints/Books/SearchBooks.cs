@@ -1,8 +1,8 @@
-using Catalog.API.Contracts.Dtos;
 using Catalog.API.Extension;
 using Catalog.API.Infra.Data;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Contracts.Catalog.Dtos;
 
 namespace Catalog.API.Endpoints.Books;
 

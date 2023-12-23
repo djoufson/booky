@@ -1,7 +1,7 @@
-using Catalog.API.Contracts.Dtos;
 using Catalog.API.Infra.Data;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Shared.Contracts.Catalog.Dtos;
 
 namespace Catalog.API.Endpoints.Authors;
 

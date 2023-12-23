@@ -1,5 +1,3 @@
-using Catalog.API.Contracts.Dtos;
-using Catalog.API.Contracts.Requests;
 using Catalog.API.Infra.Data;
 using Catalog.API.Models;
 using Catalog.API.Models.Types;
@@ -7,6 +5,8 @@ using Catalog.API.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Shared.Contracts.Catalog.Dtos;
+using Shared.Contracts.Catalog.Requests;
 
 namespace Catalog.API.Endpoints.Books;
 
