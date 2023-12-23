@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Catalog.API.Endpoints;
+namespace Catalog.API.Endpoints.Books;
 
 public partial class CatalogEndpoints
 {

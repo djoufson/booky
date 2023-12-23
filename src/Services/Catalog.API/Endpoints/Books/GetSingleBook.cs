@@ -1,37 +1,22 @@
 using Catalog.API.Contracts.Dtos;
-using Catalog.API.Contracts.Requests;
 using Catalog.API.Infra.Data;
 using Catalog.API.Models.Types;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace Catalog.API.Endpoints;
+namespace Catalog.API.Endpoints.Books;
 
 public partial class CatalogEndpoints
 {
-    public static async Task<Results<Ok<BookDto>,NotFound>> EditBookInfos(
-        [FromRoute] Guid id,
-        [FromBody] EditBookInfosRequest request,
-        CatalogDbContext context
-    )
+    public static async Task<Results<Ok<BookDto>, NotFound>> GetSingleBook(Guid id, CatalogDbContext context)
     {
-        // Get the book from the Database
         var bookId = new BookId(id);
-        var book = await context.Books.FindAsync(bookId);
+        var book = await context.Books
+            .Include(b => b.Author)
+            .FirstOrDefaultAsync(b => b.Id == bookId);
+
         if(book is null)
             return TypedResults.NotFound();
-
-        // Update the book
-        bool updated = book.UpdateInfos(
-            request.Title,
-            request.Description,
-            request.Price,
-            request.OldPrice);
-
-        if(updated)
-            context.Update(book);
-
-        await context.SaveChangesAsync();
 
         var bookDto = new BookDto(
             book.Id.Value.ToString(),
@@ -52,7 +37,6 @@ public partial class CatalogEndpoints
             book.UpdatedAt,
             book.Tags.Select(t => t.Tag).ToArray()
         );
-
         return TypedResults.Ok(bookDto);
     }
 }

@@ -4,7 +4,7 @@ using Catalog.API.Infra.Data;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Catalog.API.Endpoints;
+namespace Catalog.API.Endpoints.Books;
 
 public partial class CatalogEndpoints
 {

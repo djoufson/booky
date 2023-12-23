@@ -1,5 +1,5 @@
-using Catalog.API.Endpoints;
-using l;
+using Catalog.API.Endpoints.Authors;
+using Catalog.API.Endpoints.Books;
 
 namespace Catalog.API.Extension;
 

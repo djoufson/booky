@@ -3,11 +3,11 @@ using Catalog.API.Infra.Data;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
-namespace l;
+namespace Catalog.API.Endpoints.Authors;
 
 public partial class AuthorsEndpoints
 {
-    public static async Task<Results<Ok<AuthorDto[]>,BadRequest>> GetAllAuthors(CatalogDbContext context)
+    public static async Task<Results<Ok<AuthorDto[]>, BadRequest>> GetAllAuthors(CatalogDbContext context)
     {
         var authors = await context.Authors.ToArrayAsync();
         var authorDtos = authors.Select(a =>
