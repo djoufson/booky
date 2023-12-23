@@ -18,11 +18,11 @@ if (app.Environment.IsDevelopment())
 
 app.MapDefaultEndpoints();
 
-app.MapGroup("/api/catalog")
+app.MapGroup("/catalog")
     .WithTags("Catalog API")
     .MapCatalogEndpoints();
 
-app.MapGroup("/api/authors")
+app.MapGroup("/authors")
     .WithTags("Authors")
     .MapAuthorsEndpoints();
 
