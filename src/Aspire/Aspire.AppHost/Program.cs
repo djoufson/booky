@@ -15,13 +15,13 @@ var identityApi = builder
     .WithReference(identityDb)
     .WithReference(rabbitMq);
 
-var yarpLoadBalancer = builder
+var api = builder
     .AddProject<Projects.LoadBalancer>("api")
     .WithReference(identityApi)
     .WithReference(catalogApi);
 
 builder
     .AddProject<Projects.Web>("web")
-    .WithReference(yarpLoadBalancer);
+    .WithReference(api);
 
 builder.Build().Run();
