@@ -9,6 +9,7 @@
         "OTEL",
         "Otlp",
         "slnf",
-        "Xunit"
+        "Xunit",
+        "yarp"
     ]
 }
