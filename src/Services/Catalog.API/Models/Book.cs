@@ -12,6 +12,7 @@ internal class Book
     public decimal? OldPrice { get; private set; } // If there is a sold
     public Author Author { get; set; }
     public AuthorId AuthorId { get; set; }
+    public string? CoverImage { get; set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
     public IReadOnlyList<BookTag> Tags => _tags.ToArray();
@@ -23,6 +24,7 @@ internal class Book
         decimal price,
         decimal? oldPrice,
         Author author,
+        string? coverImage,
         DateTime createdAt,
         DateTime updatedAt,
         BookTag[] tags)
@@ -36,6 +38,7 @@ internal class Book
         UpdatedAt = updatedAt;
         Author = author;
         AuthorId = author.Id;
+        CoverImage = coverImage;
         _tags = [.. tags];
     }
 
@@ -51,6 +54,7 @@ internal class Book
         decimal price,
         decimal? oldPrice,
         Author author,
+        string? cover,
         DateTime createdAt,
         DateTime updatedAt,
         params BookTag[] tags)
@@ -62,6 +66,7 @@ internal class Book
             price,
             oldPrice,
             author,
+            cover,
             createdAt,
             updatedAt,
             tags);

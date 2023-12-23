@@ -10,7 +10,7 @@ public class BookModelTests
     {
         // Arrange
         var author = Author.Create(new UserName("author"), new Name("John", "Doe"), new Email("john@email.com"), "Short description", string.Empty);
-        var book = Book.Create("Book Title", "Book Description", 200, null, author, DateTime.Now, DateTime.Now);
+        var book = Book.Create("Book Title", "Book Description", 200, null,author, "", DateTime.Now, DateTime.Now);
         var horrorTag = new BookTag("horror");
         var romanceTag = new BookTag("romance");
         var theatreTag = new BookTag("theatre");
@@ -34,7 +34,7 @@ public class BookModelTests
         var horrorTag = new BookTag("horror");
         var romanceTag = new BookTag("romance");
         var theatreTag = new BookTag("theatre");
-        var book = Book.Create("Book Title", "Book Description", 200, null, author, DateTime.Now, DateTime.Now, horrorTag, romanceTag, theatreTag);
+        var book = Book.Create("Book Title", "Book Description", 200, null, author,"",  DateTime.Now, DateTime.Now, horrorTag, romanceTag, theatreTag);
 
         // Act
         bool act1 = book.UnTag(horrorTag);
@@ -66,7 +66,7 @@ public class BookModelTests
     {
         // Arrange
         var author = Author.Create(new UserName("author"), new Name("John", "Doe"), new Email("john@email.com"), "Short description", string.Empty);
-        var book = Book.Create("Book Title", "Book Description", 200, null, author, DateTime.Now, DateTime.Now);
+        var book = Book.Create("Book Title", "Book Description", 200, null, author,"" , DateTime.Now, DateTime.Now);
 
         // Act
         bool act1 = book.UpdateInfos();
@@ -86,7 +86,7 @@ public class BookModelTests
     {
         // Arrange
         var author = Author.Create(new UserName("author"), new Name("John", "Doe"), new Email("john@email.com"), "Short description", string.Empty);
-        var book = Book.Create("Book Title", "Book Description", 200, null, author, DateTime.Now, DateTime.Now);
+        var book = Book.Create("Book Title", "Book Description", 200, null, author,"",  DateTime.Now, DateTime.Now);
 
         // Act
         book.UpdateInfos(

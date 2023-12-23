@@ -1,5 +1,6 @@
 using Catalog.API.Infra.Data;
 using Catalog.API.Infrastructure;
+using Catalog.API.Services;
 using Shared.Extensions;
 
 namespace Catalog.API.Extension;
@@ -14,6 +15,7 @@ internal static class Extensions
         //     opt.UseNpgsql(configuration.GetConnectionString("Postgresql"));
         // });
 
+        builder.Services.AddScoped<ImageService>();
         builder.AddNpgsqlDbContext<CatalogDbContext>("CatalogDb");
         builder.Services.AddMigration<CatalogDbContext, BooksCatalogSeeder>();
 

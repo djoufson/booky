@@ -6,5 +6,6 @@ public record AddBookRequest(
     string Title,
     string Description,
     decimal Price,
+    string ImageBase64,
     string[] Tags
 );

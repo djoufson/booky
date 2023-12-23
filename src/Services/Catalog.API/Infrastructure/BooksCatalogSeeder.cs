@@ -62,6 +62,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
                 250,
                 null,
                 firstAuthor,
+                "img1.png",
                 DateTime.UtcNow,
                 DateTime.UtcNow,
                 theatreTag,
@@ -73,6 +74,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
                 300,
                 null,
                 firstAuthor,
+                "img1.png",
                 DateTime.UtcNow,
                 DateTime.UtcNow,
                 theatreTag,
@@ -86,6 +88,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
                 600,
                 null,
                 lastAuthor,
+                "img1.png",
                 DateTime.UtcNow,
                 DateTime.UtcNow,
                 horrorTag

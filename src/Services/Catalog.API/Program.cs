@@ -22,4 +22,8 @@ app.MapGroup("/api/catalog")
     .WithTags("Catalog API")
     .MapCatalogEndpoints();
 
+app.MapGroup("/api/authors")
+    .WithTags("Authors")
+    .MapAuthorsEndpoints();
+
 app.Run();
