@@ -1,11 +1,10 @@
 using Identity.API.Data;
 using Identity.API.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Shared.EF.Database;
 using Shared.Extensions;
 
-namespace Identity.API.Extension;
+namespace Identity.API.Extensions;
 
 public static class Extensions
 {

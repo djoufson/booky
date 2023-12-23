@@ -1,4 +1,4 @@
-using Catalog.API.Extension;
+using Catalog.API.Extensions;
 using Catalog.API.Infra.Data;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;

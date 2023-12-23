@@ -1,7 +1,7 @@
 using Catalog.API.Endpoints.Authors;
 using Catalog.API.Endpoints.Books;
 
-namespace Catalog.API.Extension;
+namespace Catalog.API.Extensions;
 
 internal static class Endpoints
 {

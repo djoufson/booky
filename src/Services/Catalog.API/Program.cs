@@ -1,4 +1,4 @@
-using Catalog.API.Extension;
+using Catalog.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

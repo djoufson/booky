@@ -3,7 +3,7 @@ using Catalog.API.Infrastructure;
 using Catalog.API.Services;
 using Shared.Extensions;
 
-namespace Catalog.API.Extension;
+namespace Catalog.API.Extensions;
 
 internal static class Extensions
 {
