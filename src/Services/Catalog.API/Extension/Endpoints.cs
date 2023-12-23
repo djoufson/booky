@@ -1,4 +1,5 @@
 using Catalog.API.Endpoints;
+using l;
 
 namespace Catalog.API.Extension;
 
@@ -14,6 +15,12 @@ internal static class Endpoints
         app.MapDelete("/{id:Guid}", CatalogEndpoints.DeleteBook);
         app.MapPut("/{id:Guid}", CatalogEndpoints.EditBookInfos);
         app.MapPatch("/{id:Guid}", CatalogEndpoints.EditBookInfos);
+        return app;
+    }
+
+    public static IEndpointRouteBuilder MapAuthorsEndpoints(this IEndpointRouteBuilder app)
+    {
+        app.MapGet("/", AuthorsEndpoints.GetAllAuthors);
         return app;
     }
 }
