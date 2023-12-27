@@ -14,22 +14,28 @@ public class ImageService(IWebHostEnvironment environment)
         byte[] imageBytes = Convert.FromBase64String(fileBase64);
 
         await File.WriteAllBytesAsync(path, imageBytes);
-        // using var fileStream = File.Create(path);
-        // using var stream = file.OpenReadStream();
-        // stream.Seek(0, SeekOrigin.Begin);
-        // await stream.CopyToAsync(fileStream);
-        // stream.Close();
-        // fileStream.Close();
-        return $"pics/{fileName}";
+        return fileName;
     }
-    /*
-        string imageName = $"{Guid.NewGuid().ToString()}.png";
-        byte[] imageBytes = Convert.FromBase64String(request.FileBase64);
-        string folderPath = Path.Combine("Files", "Images");
-        if(!Directory.Exists(folderPath))
-            Directory.CreateDirectory(folderPath);
-        
-        string path = Path.Combine(folderPath, imageName);
-        await IoFile.WriteAllBytesAsync(path, imageBytes);
-    */
+
+    public (string, string) Retrieve(string fileName)
+    {
+        string imageFileExtension = Path.GetExtension(fileName);
+        string path = Path.Combine(_folderPath, fileName);
+        string mimetype = GetImageMimeTypeFromImageFileExtension(imageFileExtension);
+
+        return (path, mimetype);
+    }
+
+    private static string GetImageMimeTypeFromImageFileExtension(string extension) => extension switch
+    {
+        ".png" => "image/png",
+        ".gif" => "image/gif",
+        ".jpg" or ".jpeg" => "image/jpeg",
+        ".bmp" => "image/bmp",
+        ".tiff" => "image/tiff",
+        ".wmf" => "image/wmf",
+        ".jp2" => "image/jp2",
+        ".svg" => "image/svg+xml",
+        _ => "application/octet-stream",
+    };
 }

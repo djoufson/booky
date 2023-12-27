@@ -26,7 +26,7 @@ public partial class CatalogEndpoints
         var slug = GenerateSlug(request.Title);
 
         // Create and save the image
-        var imageUrl = await imageService.Save(request.ImageBase64, slug);
+        var coverImage = await imageService.Save(request.ImageBase64, slug);
 
         // Create the book entity
         var book = Book.Create(
@@ -35,7 +35,7 @@ public partial class CatalogEndpoints
             request.Price,
             null,
             author,
-            imageUrl,
+            coverImage,
             DateTime.UtcNow,
             DateTime.UtcNow
         );
