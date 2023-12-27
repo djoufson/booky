@@ -1,23 +1,27 @@
-<nav>
-    <div class="max-w-[1024px] mx-auto flex items-start justify-between">
-        <div class="flex gap-8">
-            <a class="p-4" href="/" target="_parent">Booky</a>
+<nav class="my-[20px] fixed w-full">
+    <div class="container mx-auto flex items-start justify-around md:justify-between">
+        <div class="flex gap-1 md:gap-8">
+            <a class="p-1" href="/" target="_parent">Booky</a>
             <EditForm @FormName="SearchForm" Model="@Model" class="search-bar flex bg-red-300">
-                <input class="p-4 w-80 border-blue-500 border-x-2 border-y-2 border-solid" @bind-value="@Model.Text" required type="text" placeholder="Search by title, author or genre">
-                <button class="bg-blue-600 text-white p-4 hover:bg-blue-500 transition-all active:bg-blue-400" type="submit">
+                <input class="p-1 md:p-4 w-auto md:w-80 border-blue-500 border-x-2 border-y-2 border-solid" @bind-value="@Model.Text" required type="text" placeholder="Search by title, author or genre">
+                <button class="bg-blue-600 text-white p-2 md:p-4 hover:bg-blue-500 transition-all active:bg-blue-400" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="m29 27.586l-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29ZM4 13a9 9 0 1 1 9 9a9.01 9.01 0 0 1-9-9"/></svg>
                 </button>
             </EditForm>
         </div>
-        <div class="flex gap-8">
+        <button id="hamburger" onclick="onHamburgerClicked()" class="md:hidden group hamburger-collapsed w-12 aspect-square flex items-center justify-center">
+            <svg class="collapsed group-hover:fill-blue-500 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M3 18h18v-2H3zm0-5h18v-2H3zm0-7v2h18V6z"/></svg>
+            <svg class="expanded group-hover:fill-blue-500 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M17.414 16L26 7.414L24.586 6L16 14.586L7.414 6L6 7.414L14.586 16L6 24.586L7.414 26L16 17.414L24.586 26L26 24.586z"/></svg>
+        </button>
+        <div id="menu" class="z-20 md:z-auto hidden md:flex bg-white md:bg-transparent gap-8 left-1/2 top-1 translate-x-[-50%] absolute md:[position:initial]">
             <NavLink href="/cart" class="py-1 px-4 flex flex-col group">
                 <svg class="group-hover:fill-blue-500 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="10" cy="28" r="2"/><circle cx="24" cy="28" r="2"/><path d="M28 7H5.82L5 2.8A1 1 0 0 0 4 2H0v2h3.18L7 23.2a1 1 0 0 0 1 .8h18v-2H8.82L8 18h18a1 1 0 0 0 1-.78l2-9A1 1 0 0 0 28 7m-2.8 9H7.62l-1.4-7h20.53Z"/></svg>
                 <span class="group-hover:text-blue-500 transition-all">Cart</span>
             </NavLink>
             <div class="flex flex-col gap-1">
                 <NavLink href="/register" class="p-4 bg-blue-600 hover:bg-blue-500 text-white text-center transition-all active:bg-blue-400">Create account</NavLink>
-                <span>
-                    Have an account?
+                <span class="text-center">
+                    <span class="hidden md:inline">Have an account?</span>
                     <NavLink href="/login" class="text-blue-600 hover:text-blue-500 hover:underline transition-all">Sign in</NavLink>
                 </span>
             </div>

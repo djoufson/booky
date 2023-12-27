@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#hamburger{
+    .expanded{
+        display: none;
+    }
+    .collapsed{
+        display: block;
+    }
+}
+
+#hamburger.active{
+    .collapsed{
+        display: none;
+    }
+    .expanded{
+        display: block;
+    }
+}
