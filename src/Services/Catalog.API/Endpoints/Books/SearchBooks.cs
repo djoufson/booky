@@ -30,6 +30,7 @@ public partial class CatalogEndpoints
                 b.Author.Bio,
                 b.Author.ImageUrl
             ),
+            b.CoverImage,
             b.CreatedAt,
             b.UpdatedAt,
             b.Tags.Select(t => t.Tag).ToArray()

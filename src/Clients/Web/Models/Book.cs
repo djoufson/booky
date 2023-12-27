@@ -1,12 +1,12 @@
-namespace Shared.Contracts.Catalog.Dtos;
+namespace Web.Models;
 
-public record BookDto(
+public record Book(
     string Id,
     string Title,
     string Description,
     decimal Price,
     decimal? OldPrice,
-    AuthorDto Author,
+    Author Author,
     string? CoverImage,
     DateTime CreatedAt,
     DateTime UpdatedAt,

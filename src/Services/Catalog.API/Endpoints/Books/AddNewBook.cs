@@ -66,6 +66,7 @@ public partial class CatalogEndpoints
                 bookEntity.Author.Bio,
                 bookEntity.Author.ImageUrl
             ),
+            bookEntity.CoverImage,
             bookEntity.CreatedAt,
             bookEntity.UpdatedAt,
             bookEntity.Tags.Select(b => b.Tag).ToArray()
