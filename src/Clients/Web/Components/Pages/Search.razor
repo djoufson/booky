@@ -1,0 +1,13 @@
+@page "/search"
+
+<div class="page">
+    <div class="contain">
+        <UnderConstruction/>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "query")]
+    public string? Text { get; set; }
+}

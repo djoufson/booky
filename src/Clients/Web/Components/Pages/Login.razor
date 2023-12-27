@@ -1,3 +1,12 @@
 @page "/login"
+@inject IdentityService IdentityService
 
-<UnderConstruction/>
+<div class="page">
+    <div class="container">
+        <EditForm FormName="login-form">
+            <AntiforgeryToken />
+            <InputText title="email"/>
+
+        </EditForm>
+    </div>
+</div>

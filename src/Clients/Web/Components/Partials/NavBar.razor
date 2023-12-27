@@ -1,9 +1,11 @@
+@inject NavigationManager NavigationManager
+
 <nav class="my-[20px] fixed w-full">
     <div class="container mx-auto flex items-start justify-around md:justify-between">
         <div class="flex gap-1 md:gap-8">
             <a class="p-1" href="/" target="_parent">Booky</a>
-            <EditForm @FormName="SearchForm" Model="@Model" class="search-bar flex bg-red-300">
-                <input class="p-1 md:p-4 w-auto md:w-80 border-blue-500 border-x-2 border-y-2 border-solid" @bind-value="@Model.Text" required type="text" placeholder="Search by title, author or genre">
+            <EditForm FormName="search-form" Model="@Model" OnSubmit="SubmitHandler" class="search-bar flex bg-red-300">
+                <InputText @bind-Value="Model.Text" class="p-1 md:p-4 w-auto md:w-80 border-blue-500 border-x-2 border-y-2 border-solid" required placeholder="Search by title, author or genre" />
                 <button class="bg-blue-600 text-white p-2 md:p-4 hover:bg-blue-500 transition-all active:bg-blue-400" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="m29 27.586l-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29ZM4 13a9 9 0 1 1 9 9a9.01 9.01 0 0 1-9-9"/></svg>
                 </button>
@@ -41,10 +43,11 @@
 </nav>
 
 @code{
+    [SupplyParameterFromForm]
     private SearchModel Model { get; set; } = new();
-    void SubmitHandler()
+    void  SubmitHandler()
     {
-        Console.WriteLine(Model.Text);
+        NavigationManager.NavigateTo($"search?query={Model.Text}", true);
     }
 
     class SearchModel
