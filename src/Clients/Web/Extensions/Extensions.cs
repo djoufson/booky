@@ -11,7 +11,10 @@ public static class Extensions
             .AddRazorComponents()
             .AddInteractiveServerComponents();
 
+        builder.Services.AddOptions();
+        builder.Services.AddAuthorizationCore();
         builder.Services.AddScoped<CatalogService>();
+        builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddHttpClient<CatalogService>(cfg =>
         {
             cfg.BaseAddress = new ("http://api/c/");
