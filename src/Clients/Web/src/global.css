@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.page{
+    @apply p-14 md:pt-24;
+}
+
 #hamburger{
     .expanded{
         display: none;
