@@ -8,7 +8,14 @@ public class CatalogService(HttpClient client)
 
     public async Task<BookDto[]> GetAllBooksAsync()
     {
-        var books = await _client.GetFromJsonAsync<BookDto[]>("catalog");
-        return books ?? [];
+        try
+        {
+            var books = await _client.GetFromJsonAsync<BookDto[]>("catalog");
+            return books ?? [];
+        }
+        catch (Exception)
+        {
+            return [];
+        }
     }
 }

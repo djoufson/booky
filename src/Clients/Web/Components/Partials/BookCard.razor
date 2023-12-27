@@ -1,0 +1,10 @@
+<div>
+    <img src="@Book.Title" alt="@Book.Title">
+    <p>@Book.Title</p>
+    <p>$ @Book.Price</p>
+</div>
+
+@code{
+    [Parameter]
+    public required BookDto Book { get; set; }
+}

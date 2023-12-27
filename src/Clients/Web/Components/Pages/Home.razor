@@ -1,5 +1,38 @@
 ﻿@page "/"
+@inject CatalogService CatalogService
+@attribute [StreamRendering]
 
 <PageTitle>Booky | Home</PageTitle>
 
-@* <h1 class="text-3xl">Welcome to Booky</h1> *@
+<div class="page">
+    <div class="container">
+        <Hero/>
+        @if(Books is null)
+        {
+            <p>Loading ...</p>
+        }
+        else if(Books.Length <= 0)
+        {
+            <p>There are no book</p>
+        }
+        else
+        {
+            <div class="flex">
+                @foreach(var book in Books)
+                {
+                    <BookCard Book="@book" />
+                }
+            </div>
+            <a>See all</a>
+        }
+    </div>
+</div>
+
+@code{
+    private BookDto[]? Books { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Books = await CatalogService.GetAllBooksAsync();
+    }
+}
