@@ -35,6 +35,7 @@ public partial class CatalogEndpoints
         // Create the book entity
         var book = Book.Create(
             request.Title,
+            slug,
             request.Description,
             request.Price,
             null,
@@ -58,6 +59,7 @@ public partial class CatalogEndpoints
         var bookDto = new BookDto(
             book.Id.Value.ToString(),
             book.Title,
+            book.Slug,
             book.Description,
             book.Price,
             book.OldPrice,

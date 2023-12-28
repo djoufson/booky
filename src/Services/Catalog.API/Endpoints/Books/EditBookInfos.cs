@@ -40,6 +40,7 @@ public partial class CatalogEndpoints
         var bookDto = new BookDto(
             book.Id.Value.ToString(),
             book.Title,
+            book.Slug,
             book.Description,
             book.Price,
             book.OldPrice,

@@ -3,6 +3,7 @@ namespace Shared.Contracts.Catalog.Dtos;
 public record BookDto(
     string Id,
     string Title,
+    string Slug,
     string Description,
     decimal Price,
     decimal? OldPrice,

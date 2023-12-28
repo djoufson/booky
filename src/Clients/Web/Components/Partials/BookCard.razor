@@ -1,8 +1,10 @@
-<div class="flex flex-col gap-2 w-[200px]">
-    <img class="w-full h-[300px]" src="@Book.CoverImage" alt="@Book.Title">
+<a class="flex flex-col gap-2 w-[200px] group" href="/book/@Book.Slug">
+    <div class="w-full h-[300px] cursor-pointer overflow-hidden">
+        <img class="w-full h-full group-hover:scale-110 transition-all" src="@Book.CoverImage" alt="@Book.Title">
+    </div>
     <p class="min-h-12">@Book.Title</p>
     <p>$ @Book.Price</p>
-</div>
+</a>
 
 @code{
     [Parameter]

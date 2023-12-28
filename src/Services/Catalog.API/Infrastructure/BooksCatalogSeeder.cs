@@ -52,6 +52,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
             Book[] books = [
                 Book.Create(
                     "Harry Potter",
+                    "harry-potter",
                     "Join young wizard Harry Potter as he navigates the magical world, discovering his unique abilities and forming lifelong friendships at Hogwarts School of Witchcraft and Wizardry. As dark forces rise, Harry learns about his connection to the dark wizard Voldemort and faces challenges that will shape his destiny. This epic series explores themes of friendship, courage, and the battle between good and evil.",
                     930,
                     null,
@@ -65,6 +66,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
 
                 Book.Create(
                     "Soul",
+                    "soul",
                     "In a world where souls hold the key to unimaginable power, follow protagonist Alex as they embark on a perilous journey to unlock the mysteries of their own soul. As ancient forces awaken, the fate of the realms hangs in the balance, and Alex must confront their deepest fears to save everything they hold dear.",
                     430,
                     null,
@@ -78,6 +80,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
 
                 Book.Create(
                     "The Book Of Art",
+                    "the-book-of-art",
                     "In a world where souls hold the key to unimaginable power, follow protagonist Alex as they embark on a perilous journey to unlock the mysteries of their own soul. As ancient forces awaken, the fate of the realms hangs in the balance, and Alex must confront their deepest fears to save everything they hold dear.",
                     430,
                     null,
@@ -90,6 +93,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
 
                 Book.Create(
                     "No Longer Human",
+                    "no-longer-human",
                     "Dive into the tumultuous life of Yozo Oba, the protagonist haunted by a profound sense of alienation and detachment from society. Through introspective narratives, Osamu Dazai explores themes of identity crisis, societal expectations, and the relentless search for genuine human connection in a world that often feels devoid of authenticity.",
                     1130,
                     null,
@@ -102,6 +106,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
 
                 Book.Create(
                     "Big Swiss",
+                    "big-swiss",
                     "Embark on a culinary journey through the heart of Switzerland with chef Thomas Müller. In \"Big Swiss,\" Müller shares his passion for traditional Swiss cuisine, offering a delectable blend of recipes, cultural anecdotes, and breathtaking landscapes. From cheese fondue in the Alps to chocolate delicacies in Zurich, this book celebrates the rich flavors and diverse culinary heritage of Switzerland.",
                     610,
                     null,
@@ -113,6 +118,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
 
                 Book.Create(
                     "Absolution",
+                    "absolution",
                     "In this gripping psychological thriller, detective Emily Thompson is tasked with solving a series of heinous crimes that lead her to confront her own haunted past. As she delves into the twisted minds of criminals, the line between justice and revenge blurs. \"Absolution\" explores the complexities of morality, redemption, and the dark corners of the human psyche.",
                     990,
                     null,
@@ -126,6 +132,7 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
 
                 Book.Create(
                     "The Little Dog",
+                    "the-little-dog",
                     "Follow the heartwarming journey of a small canine named Oliver as he brings joy and healing to the lives he touches. In \"The Little Dog,\" Emma Simmons weaves a tale of companionship, resilience, and the profound impact of small gestures. As Oliver's adventures unfold, readers are reminded of the enduring bond between humans and their furry friends.",
                     990,
                     null,

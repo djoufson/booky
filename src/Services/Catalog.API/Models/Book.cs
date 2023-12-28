@@ -7,6 +7,7 @@ internal class Book
     private readonly List<BookTag> _tags = [];
     public BookId Id { get; private set; }
     public string Title { get; private set; }
+    public string Slug { get; private set; }
     public string Description { get; private set; }
     public decimal Price { get; private set; }
     public decimal? OldPrice { get; private set; } // If there is a sold
@@ -20,6 +21,7 @@ internal class Book
     private Book(
         BookId id,
         string title,
+        string slug,
         string description,
         decimal price,
         decimal? oldPrice,
@@ -31,6 +33,7 @@ internal class Book
     {
         Id = id;
         Title = title;
+        Slug = slug;
         Description = description;
         Price = price;
         OldPrice = oldPrice;
@@ -50,6 +53,7 @@ internal class Book
 
     public static Book Create(
         string title,
+        string slug,
         string description,
         decimal price,
         decimal? oldPrice,
@@ -62,6 +66,7 @@ internal class Book
         return new Book(
             BookId.Create(),
             title,
+            slug,
             description,
             price,
             oldPrice,

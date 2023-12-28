@@ -22,6 +22,7 @@ public partial class CatalogEndpoints
         var response = books.Select(b => new BookDto(
             b.Id.Value.ToString(),
             b.Title,
+            b.Slug,
             b.Description,
             b.Price,
             b.OldPrice,
