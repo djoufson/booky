@@ -1,7 +1,4 @@
-using System.Security.Claims;
-using Identity.API.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
+using Identity.API.Apis.Endpoints;
 
 namespace Identity.API.Apis;
 
@@ -9,6 +6,8 @@ public static class IdentityApi
 {
     public static IEndpointRouteBuilder MapIdentityEndpoints(this IEndpointRouteBuilder app)
     {
+        app.MapPost("login", IdentityEndpoints.Login);
+
         // app.MapPut("upgrade", UpgradeToAuthor)
         //     .RequireAuthorization();
 

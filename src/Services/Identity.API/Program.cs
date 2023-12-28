@@ -1,3 +1,4 @@
+using Identity.API.Apis;
 using Identity.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,11 +23,9 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-// app
-//     .MapGroup("account")
-//     .WithTags("Identity")
-//     .MapIdentityApi<ApplicationUser>();
-
-// app.MapIdentityEndpoints();
+app
+    .MapGroup("account")
+    .WithTags("Identity")
+    .MapIdentityEndpoints();
 
 app.Run();

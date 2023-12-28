@@ -2,6 +2,8 @@ using System.Text;
 using Identity.API.Data;
 using Identity.API.Models;
 using Identity.API.Options;
+using Identity.API.Services;
+using Identity.API.Services.Abstraction;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -16,8 +18,10 @@ public static class Extensions
     {
         var jwtOptions = builder.Configuration.GetRequiredSection(JwtOptions.SectionName).Get<JwtOptions>()!;
         var cookieOptions = builder.Configuration.GetRequiredSection(Options.CookieOptions.SectionName).Get<Options.CookieOptions>()!;
+        builder.Services.AddOptions<JwtOptions>().BindConfiguration(JwtOptions.SectionName);
         builder.AddNpgsqlDbContext<ApplicationDbContext>("IdentityDb");
         builder.Services.AddMigration<ApplicationDbContext, ApplicationUsersSeeder>();
+        builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
