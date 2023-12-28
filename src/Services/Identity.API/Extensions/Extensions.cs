@@ -1,6 +1,10 @@
+using System.Text;
 using Identity.API.Data;
 using Identity.API.Models;
+using Identity.API.Options;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Shared.EF.Database;
 using Shared.Extensions;
 
@@ -10,19 +14,46 @@ public static class Extensions
 {
     public static IHostApplicationBuilder AddIdentityServices(this IHostApplicationBuilder builder)
     {
-        // Used without Aspire
-        // builder.Services.AddDbContext<ApplicationDbContext>(opt =>
-        // {
-        //     opt.UseNpgsql("IdentityDb");
-        // });
-        // builder.Services.AddIdentity<ApplicationUser, IdentityRole>();
+        var jwtOptions = builder.Configuration.GetRequiredSection(JwtOptions.SectionName).Get<JwtOptions>()!;
+        var cookieOptions = builder.Configuration.GetRequiredSection(Options.CookieOptions.SectionName).Get<Options.CookieOptions>()!;
         builder.AddNpgsqlDbContext<ApplicationDbContext>("IdentityDb");
-        builder.Services.AddAuthorizationBuilder();
         builder.Services.AddMigration<ApplicationDbContext, ApplicationUsersSeeder>();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddAuthentication(opt =>
+        {
+            opt.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            opt.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            opt.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        })
+            .AddCookie(opt =>
+            {
+                // opt.Cookie.HttpOnly = true;
+                opt.ExpireTimeSpan = TimeSpan.FromMinutes(cookieOptions.ExpirationInMinutes);
+                opt.SlidingExpiration = true;
+                opt.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            })
+            .AddJwtBearer(opt =>
+            {
+                // opt.RequireHttpsMetadata = true;
+                opt.SaveToken = true;
+                opt.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+                    ValidIssuer = jwtOptions.Issuer,
+                    ValidAudience = jwtOptions.Audience
+                };
+            });
+
+        builder.Services.AddAuthorization();
         builder.Services
-            .AddIdentityApiEndpoints<ApplicationUser>()
+            .AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
