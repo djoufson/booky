@@ -7,6 +7,7 @@ public static class IdentityApi
     public static IEndpointRouteBuilder MapIdentityEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("login", IdentityEndpoints.Login);
+        app.MapPost("register", IdentityEndpoints.Register);
 
         // app.MapPut("upgrade", UpgradeToAuthor)
         //     .RequireAuthorization();
