@@ -3,6 +3,7 @@ using Identity.API.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Identity.API.Apis.Endpoints;
 
@@ -14,8 +15,8 @@ public partial class IdentityEndpoints
         [FromServices] ApplicationDbContext dbContext
     )
     {
-        var existingUser = await userManager.FindByNameAsync(request.UserName);
-        if(existingUser is not null)
+        var exists = await dbContext.Users.AnyAsync(u => u.UserName == request.UserName);
+        if(exists)
             return TypedResults.BadRequest("This username is already taken");
 
         var user = new ApplicationUser()
@@ -27,6 +28,7 @@ public partial class IdentityEndpoints
         };
 
         await userManager.CreateAsync(user, request.Password);
+        await dbContext.AddAsync(user);
         await dbContext.SaveChangesAsync();
         var response = new RegisterResponse(
             user.Id,

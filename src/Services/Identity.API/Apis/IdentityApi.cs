@@ -8,6 +8,7 @@ public static class IdentityApi
     {
         app.MapPost("login", IdentityEndpoints.Login);
         app.MapPost("register", IdentityEndpoints.Register);
+        app.MapGet("users", IdentityEndpoints.GetAllUsers);
 
         // app.MapPut("upgrade", UpgradeToAuthor)
         //     .RequireAuthorization();
