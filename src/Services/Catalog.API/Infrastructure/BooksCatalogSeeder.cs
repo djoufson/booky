@@ -12,37 +12,32 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
     {
         if (!await context.Tags.AnyAsync())
         {
-            var horrorTag = new BookTag("horror");
-            var romanceTag = new BookTag("romance");
-            var theatreTag = new BookTag("theatre");
-            await context.AddRangeAsync(horrorTag, romanceTag, theatreTag);
+            BookTag[] tags = [
+                new BookTag("fantasy"),
+                new BookTag("adventure"),
+                new BookTag("coming-of-age"),
+                new BookTag("mystery"),
+                new BookTag("fiction"),
+                new BookTag("psychology"),
+                new BookTag("travelogue"),
+                new BookTag("crime"),
+                new BookTag("thriller"),
+                new BookTag("animals"),
+            ];
+
+            await context.AddRangeAsync(tags);
             await context.SaveChangesAsync();
         }
 
         if (!await context.Authors.AnyAsync())
         {
             Author[] authors = [
-                Author.Create(
-                    new UserName("johndoe"),
-                    new Name("John", "Doe"),
-                    new Email("johndoe@email.com"),
-                    "A passionate romancer and theatre maker",
-                    null
-                ),
-                Author.Create(
-                    new UserName("janesmith"),
-                    new Name("Jane", "Smith"),
-                    new Email("janesmith@email.com"),
-                    "A woman with love for rich stories and passionate romance",
-                    null
-                ),
-                Author.Create(
-                    new UserName("alice237"),
-                    new Name("Alice", null),
-                    new Email("alice@email.com"),
-                    "An author of drama pieces",
-                    null
-                ),
+                Author.Create(new UserName("j-rowling"), new Name("Rowling", "J. K."), new Email("rowling@email.com"), "", ""),
+                Author.Create(new UserName("owilson"), new Name("Olivia", "Wilson"), new Email("owilson@email.com"), "", ""),
+                Author.Create(new UserName("dazai"), new Name("Osamu", "Dazai"), new Email("dazai@email.com"), "", ""),
+                Author.Create(new UserName("fischer"), new Name("Markus", "Fischer"), new Email("mfischer@email.com"), "", ""),
+                Author.Create(new UserName("alice"), new Name("Alice", "McDermott"), new Email("al@email.com"), "", ""),
+                Author.Create(new UserName("emma"), new Name("Emma", "Simmons"), new Email("emmons@email.com"), "", ""),
             ];
 
             await context.AddRangeAsync(authors);
@@ -51,50 +46,98 @@ internal class BooksCatalogSeeder : IDbSeeder<CatalogDbContext>
 
         if (!await context.Books.AnyAsync())
         {
-            var horrorTag = await context.Tags.OrderBy(t => t.Id).FirstOrDefaultAsync(t => t.Tag == "horror") ?? new BookTag("horror");
-            var romanceTag = await context.Tags.OrderBy(t => t.Id).FirstOrDefaultAsync(t => t.Tag == "romance") ?? new BookTag("romance");
-            var theatreTag = await context.Tags.OrderBy(t => t.Id).FirstOrDefaultAsync(t => t.Tag == "theatre") ?? new BookTag("theatre");
+            var tags = await context.Tags.ToArrayAsync();
             var authors = await context.Authors.ToArrayAsync();
-            var firstAuthor = authors.OrderBy(a => a.Id.Value).First();
-            var book1 = Book.Create(
-                "Figaro's wedding",
-                "The incredible wedding ceremony of Figaro",
-                250,
-                null,
-                firstAuthor,
-                "pic1.jpg",
-                DateTime.UtcNow,
-                DateTime.UtcNow,
-                theatreTag,
-                romanceTag
-            );
-            var book2 = Book.Create(
-                "Figaro's wedding - Act 2",
-                "The incredible wedding ceremony of Figaro",
-                300,
-                null,
-                firstAuthor,
-                "pic2.jpg",
-                DateTime.UtcNow,
-                DateTime.UtcNow,
-                theatreTag,
-                romanceTag
-            );
 
-            var lastAuthor = authors.OrderBy(a => a.Id.Value).Last();
-            var book3 = Book.Create(
-                "Previous Halloween, Last Halloween",
-                "Dive deep inside the weirdest Halloween ever... Boo",
-                600,
-                null,
-                lastAuthor,
-                "pic3.jpg",
-                DateTime.UtcNow,
-                DateTime.UtcNow,
-                horrorTag
-            );
+            Book[] books = [
+                Book.Create(
+                    "Harry Potter",
+                    "Join young wizard Harry Potter as he navigates the magical world, discovering his unique abilities and forming lifelong friendships at Hogwarts School of Witchcraft and Wizardry. As dark forces rise, Harry learns about his connection to the dark wizard Voldemort and faces challenges that will shape his destiny. This epic series explores themes of friendship, courage, and the battle between good and evil.",
+                    930,
+                    null,
+                    authors.First(a => a.UserName.Value == "j-rowling"),
+                    "pic1.jpg",
+                    DateTime.UtcNow,
+                    DateTime.UtcNow,
+                    tags.First(t => t.Tag == "fantasy"),
+                    tags.First(t => t.Tag == "adventure"),
+                    tags.First(t => t.Tag == "coming-of-age")),
 
-            await context.AddRangeAsync(book1, book2, book3);
+                Book.Create(
+                    "Soul",
+                    "In a world where souls hold the key to unimaginable power, follow protagonist Alex as they embark on a perilous journey to unlock the mysteries of their own soul. As ancient forces awaken, the fate of the realms hangs in the balance, and Alex must confront their deepest fears to save everything they hold dear.",
+                    430,
+                    null,
+                    authors.First(a => a.UserName.Value == "owilson"),
+                    "pic2.jpg",
+                    DateTime.UtcNow,
+                    DateTime.UtcNow,
+                    tags.First(t => t.Tag == "fantasy"),
+                    tags.First(t => t.Tag == "adventure"),
+                    tags.First(t => t.Tag == "mystery")),
+
+                Book.Create(
+                    "The Book Of Art",
+                    "In a world where souls hold the key to unimaginable power, follow protagonist Alex as they embark on a perilous journey to unlock the mysteries of their own soul. As ancient forces awaken, the fate of the realms hangs in the balance, and Alex must confront their deepest fears to save everything they hold dear.",
+                    430,
+                    null,
+                    authors.First(a => a.UserName.Value == "owilson"),
+                    "pic3.jpg",
+                    DateTime.UtcNow,
+                    DateTime.UtcNow,
+                    tags.First(t => t.Tag == "fantasy"),
+                    tags.First(t => t.Tag == "adventure")),
+
+                Book.Create(
+                    "No Longer Human",
+                    "Dive into the tumultuous life of Yozo Oba, the protagonist haunted by a profound sense of alienation and detachment from society. Through introspective narratives, Osamu Dazai explores themes of identity crisis, societal expectations, and the relentless search for genuine human connection in a world that often feels devoid of authenticity.",
+                    1130,
+                    null,
+                    authors.First(a => a.UserName.Value == "dazai"),
+                    "pic4.jpg",
+                    DateTime.UtcNow,
+                    DateTime.UtcNow,
+                    tags.First(t => t.Tag == "psychology"),
+                    tags.First(t => t.Tag == "fiction")),
+
+                Book.Create(
+                    "Big Swiss",
+                    "Embark on a culinary journey through the heart of Switzerland with chef Thomas Müller. In \"Big Swiss,\" Müller shares his passion for traditional Swiss cuisine, offering a delectable blend of recipes, cultural anecdotes, and breathtaking landscapes. From cheese fondue in the Alps to chocolate delicacies in Zurich, this book celebrates the rich flavors and diverse culinary heritage of Switzerland.",
+                    610,
+                    null,
+                    authors.First(a => a.UserName.Value == "dazai"),
+                    "pic5.jpg",
+                    DateTime.UtcNow,
+                    DateTime.UtcNow,
+                    tags.First(t => t.Tag == "travelogue")),
+
+                Book.Create(
+                    "Absolution",
+                    "In this gripping psychological thriller, detective Emily Thompson is tasked with solving a series of heinous crimes that lead her to confront her own haunted past. As she delves into the twisted minds of criminals, the line between justice and revenge blurs. \"Absolution\" explores the complexities of morality, redemption, and the dark corners of the human psyche.",
+                    990,
+                    null,
+                    authors.First(a => a.UserName.Value == "alice"),
+                    "pic6.jpg",
+                    DateTime.UtcNow,
+                    DateTime.UtcNow,
+                    tags.First(t => t.Tag == "thriller"),
+                    tags.First(t => t.Tag == "crime"),
+                    tags.First(t => t.Tag == "psychology")),
+
+                Book.Create(
+                    "The Little Dog",
+                    "Follow the heartwarming journey of a small canine named Oliver as he brings joy and healing to the lives he touches. In \"The Little Dog,\" Emma Simmons weaves a tale of companionship, resilience, and the profound impact of small gestures. As Oliver's adventures unfold, readers are reminded of the enduring bond between humans and their furry friends.",
+                    990,
+                    null,
+                    authors.First(a => a.UserName.Value == "alice"),
+                    "pic10.jpg",
+                    DateTime.UtcNow,
+                    DateTime.UtcNow,
+                    tags.First(t => t.Tag == "fiction"),
+                    tags.First(t => t.Tag == "animals")),
+            ];
+
+            await context.AddRangeAsync(books);
             await context.SaveChangesAsync();
         }
     }
