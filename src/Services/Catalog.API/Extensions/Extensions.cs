@@ -1,5 +1,6 @@
 using Catalog.API.Infra.Data;
 using Catalog.API.Infrastructure;
+using Catalog.API.Options;
 using Catalog.API.Services;
 using Shared.Extensions;
 
@@ -19,9 +20,11 @@ internal static class Extensions
         builder.AddNpgsqlDbContext<CatalogDbContext>("CatalogDb");
         builder.Services.AddMigration<CatalogDbContext, BooksCatalogSeeder>();
 
+        builder.Services.AddSwaggerGen();
         builder.Services.AddProblemDetails();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddOptions<CatalogOptions>()
+            .BindConfiguration(nameof(CatalogOptions));
         return builder;
     }
 }

@@ -1,7 +1,9 @@
 using Catalog.API.Extensions;
 using Catalog.API.Infra.Data;
+using Catalog.API.Options;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Shared.Contracts.Catalog.Dtos;
 
 namespace Catalog.API.Endpoints.Books;
@@ -10,10 +12,12 @@ public partial class CatalogEndpoints
 {
     public static async Task<Results<Ok<BookDto[]>, NotFound>> SearchBooks(
         [FromServices] CatalogDbContext context,
+        [FromServices] IOptions<CatalogOptions> options,
         [FromQuery] string searchQuery,
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 20)
     {
+        var opt = options.Value;
         var books = await CatalogDbContext.SearchByNameOrTagOrAuthor(context, searchQuery, pageNumber, pageSize).ToListAsync();
         var response = books.Select(b => new BookDto(
             b.Id.Value.ToString(),
@@ -28,9 +32,9 @@ public partial class CatalogEndpoints
                 b.Author.Name.Last,
                 b.Author.Email.Value,
                 b.Author.Bio,
-                b.Author.ImageUrl
+                opt.PicBaseUrl.Replace("[0]", b.Author.ImageUrl)
             ),
-            b.CoverImage,
+            opt.PicBaseUrl.Replace("[0]", b.Id.Value.ToString()),
             b.CreatedAt,
             b.UpdatedAt,
             b.Tags.Select(t => t.Tag).ToArray()

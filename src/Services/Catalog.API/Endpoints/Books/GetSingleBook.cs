@@ -1,15 +1,21 @@
 using Catalog.API.Infra.Data;
 using Catalog.API.Models.Types;
+using Catalog.API.Options;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Shared.Contracts.Catalog.Dtos;
 
 namespace Catalog.API.Endpoints.Books;
 
 public partial class CatalogEndpoints
 {
-    public static async Task<Results<Ok<BookDto>, NotFound>> GetSingleBook(Guid id, CatalogDbContext context)
+    public static async Task<Results<Ok<BookDto>, NotFound>> GetSingleBook(
+        Guid id,
+        CatalogDbContext context,
+        IOptions<CatalogOptions> options)
     {
+        var opt = options.Value;
         var bookId = new BookId(id);
         var book = await context.Books
             .Include(b => b.Author)
@@ -31,9 +37,9 @@ public partial class CatalogEndpoints
                 book.Author.Name.Last,
                 book.Author.Email.Value,
                 book.Author.Bio,
-                book.Author.ImageUrl
+                opt.PicBaseUrl.Replace("[0]", book.Author.ImageUrl)
             ),
-            book.CoverImage,
+            opt.PicBaseUrl.Replace("[0]", book.Id.Value.ToString()),
             book.CreatedAt,
             book.UpdatedAt,
             book.Tags.Select(t => t.Tag).ToArray()

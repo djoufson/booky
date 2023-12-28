@@ -6,7 +6,7 @@
 
 <div class="page">
     <div class="container">
-        <Hero/>
+        @* <Hero/> *@
         @if(Books is null)
         {
             <p>Loading ...</p>
@@ -17,7 +17,7 @@
         }
         else
         {
-            <div class="flex">
+            <div class="flex gap-4">
                 @foreach(var book in Books)
                 {
                     <BookCard Book="@book" />

@@ -1,10 +1,12 @@
 using Catalog.API.Infra.Data;
 using Catalog.API.Models;
 using Catalog.API.Models.Types;
+using Catalog.API.Options;
 using Catalog.API.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Shared.Contracts.Catalog.Dtos;
 using Shared.Contracts.Catalog.Requests;
 
@@ -15,8 +17,10 @@ public partial class CatalogEndpoints
     public static async Task<Results<Ok<BookDto>,NotFound>> AddNewBook(
         [FromBody] AddBookRequest request,
         CatalogDbContext context,
-        ImageService imageService)
+        ImageService imageService,
+        IOptions<CatalogOptions> options)
     {
+        var opt = options.Value;
         // Get the author
         var authorId = new AuthorId(request.AuthorId);
         var author = await context.Authors.FindAsync(authorId);
@@ -48,28 +52,28 @@ public partial class CatalogEndpoints
         }
 
         // Save to the database
-        var bookEntity = (await context.AddAsync(book)).Entity;
+        book = (await context.AddAsync(book)).Entity;
         await context.SaveChangesAsync();
 
         var bookDto = new BookDto(
-            bookEntity.Id.Value.ToString(),
-            bookEntity.Title,
-            bookEntity.Description,
-            bookEntity.Price,
-            bookEntity.OldPrice,
+            book.Id.Value.ToString(),
+            book.Title,
+            book.Description,
+            book.Price,
+            book.OldPrice,
             new AuthorDto(
-                bookEntity.AuthorId.Value.ToString(),
-                bookEntity.Author.UserName.Value,
-                bookEntity.Author.Name.First,
-                bookEntity.Author.Name.Last,
-                bookEntity.Author.Email.Value,
-                bookEntity.Author.Bio,
-                bookEntity.Author.ImageUrl
+                book.AuthorId.Value.ToString(),
+                book.Author.UserName.Value,
+                book.Author.Name.First,
+                book.Author.Name.Last,
+                book.Author.Email.Value,
+                book.Author.Bio,
+                opt.PicBaseUrl.Replace("[0]", book.Author.ImageUrl)
             ),
-            bookEntity.CoverImage,
-            bookEntity.CreatedAt,
-            bookEntity.UpdatedAt,
-            bookEntity.Tags.Select(b => b.Tag).ToArray()
+            opt.PicBaseUrl.Replace("[0]", book.Id.Value.ToString()),
+            book.CreatedAt,
+            book.UpdatedAt,
+            book.Tags.Select(b => b.Tag).ToArray()
         );
         return TypedResults.Ok(bookDto);
     }
