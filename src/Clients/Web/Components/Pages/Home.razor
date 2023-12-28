@@ -5,7 +5,7 @@
 <PageTitle>Booky | Home</PageTitle>
 
 <div class="page">
-    <div class="container">
+    <div class="container mx-auto">
         @* <Hero/> *@
         @if(Books is null)
         {
@@ -17,13 +17,13 @@
         }
         else
         {
-            <div class="flex gap-4">
+            <div class="flex gap-4 flex-wrap">
                 @foreach(var book in Books)
                 {
                     <BookCard Book="@book" />
                 }
             </div>
-            <a>See all</a>
+            <a class="mt-10 link">See all</a>
         }
     </div>
 </div>
