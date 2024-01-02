@@ -7,7 +7,7 @@
 <div class="flex items-center justify-center w-full min-h-[700px] h-[calc(100svh - 100px)]">
     <div>
         <h1 class="my-6 text-4xl">Login !!</h1>
-        <EditForm Model="@Model" OnSubmit="HandleLogin" FormName="login-form" class="flex flex-col gap-4 min-w-[400px]">
+        <EditForm Model="@Model" OnValidSubmit="HandleLogin" FormName="login-form" class="flex flex-col gap-4 min-w-[400px]">
             <label class="flex flex-col">
                 Email
                 <InputText class="p-4 bg-gray-100" title="email" type="email" @bind-Value="@Model.Email" required placeholder="Enter your email"/>

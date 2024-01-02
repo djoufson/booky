@@ -8,7 +8,7 @@ public class IdentityService(HttpClient client)
     {
         try
         {
-            var response = await client.PostAsJsonAsync("login", new { email, password });
+            var response = await client.PostAsJsonAsync("login?useCookies=true", new { email, password });
             if(response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
