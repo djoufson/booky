@@ -37,8 +37,25 @@ public class IdentityService(HttpClient client) : AuthenticationStateProvider
             var response = await client.PostAsJsonAsync("login?useCookies=true", new { email, password });
             if(response.IsSuccessStatusCode)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                var result = JsonSerializer.Deserialize<AuthResponse>(content);
+            }
+            else
+            {
+                // Login failed
+            }
+        }
+        catch (Exception)
+        {
+        }
+        return new AuthResult();
+    }
+
+    public async Task<AuthResult?> RegisterAsync(string email, string password)
+    {
+        try
+        {
+            var response = await client.PostAsJsonAsync("register", new { email, password });
+            if(response.IsSuccessStatusCode)
+            {
             }
             else
             {

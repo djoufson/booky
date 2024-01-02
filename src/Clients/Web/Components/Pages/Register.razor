@@ -1,4 +1,39 @@
 @page "/register"
+@inject IdentityService IdentityService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Booky | Register</PageTitle>
-<UnderConstruction/>
+
+<div class="flex items-center justify-center w-full min-h-[700px] h-[calc(100svh - 100px)]">
+    <div>
+        <h1 class="my-6 text-4xl">Register</h1>
+        <EditForm Model="@Model" OnValidSubmit="HandleLogin" FormName="register-form" class="flex flex-col gap-4 min-w-[400px]">
+            <label class="flex flex-col">
+                Email
+                <InputText class="p-4 bg-gray-100" title="email" type="email" @bind-Value="@Model.Email" required placeholder="Enter your email"/>
+            </label>
+            <label class="flex flex-col">
+                Password
+                <InputText class="p-4 bg-gray-100" title="password" type="password" @bind-Value="@Model.Password" required placeholder="Enter your password"/>
+            </label>
+            <button class="bg-blue-600 text-white p-2 md:p-4 hover:bg-blue-500 transition-all active:bg-blue-400" type="submit">Create Account</button>
+        </EditForm>
+    </div>
+</div>
+
+@code{
+    [SupplyParameterFromForm(FormName = "register-form")]
+    private RegisterModel Model { get; set; } = new();
+
+    private async Task HandleLogin()
+    {
+        var result = await IdentityService.RegisterAsync(Model.Email, Model.Password);
+        NavigationManager.NavigateTo("/login", true);
+    }
+
+    class RegisterModel
+    {
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
+}
