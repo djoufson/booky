@@ -22,7 +22,7 @@
 </div>
 
 @code{
-    [SupplyParameterFromForm]
+    [SupplyParameterFromForm(FormName = "login-form")]
     private LoginModel Model { get; set; } = new();
 
     private async Task HandleLogin()

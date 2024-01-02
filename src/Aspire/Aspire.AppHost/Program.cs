@@ -1,19 +1,16 @@
 var builder = DistributedApplication.CreateBuilder(args);
 var postgres = builder.AddPostgresContainer("postgres");
-var rabbitMq = builder.AddRabbitMQContainer("rabbitmq");
 
 var catalogDb = postgres.AddDatabase("CatalogDb");
 var identityDb = postgres.AddDatabase("IdentityDb");
 
 var catalogApi = builder
     .AddProject<Projects.Catalog_API>("catalog-api")
-    .WithReference(catalogDb)
-    .WithReference(rabbitMq);
+    .WithReference(catalogDb);
 
 var identityApi = builder
     .AddProject<Projects.Identity_API>("identity-api")
-    .WithReference(identityDb)
-    .WithReference(rabbitMq);
+    .WithReference(identityDb);
 
 var api = builder
     .AddProject<Projects.LoadBalancer>("api")
