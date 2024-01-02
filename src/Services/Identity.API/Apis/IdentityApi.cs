@@ -10,6 +10,7 @@ public static class IdentityApi
 {
     public static IEndpointRouteBuilder MapIdentityEndpoints(this IEndpointRouteBuilder app)
     {
+        app.MapGet("state", IdentityEndpoints.GetState);
         app.MapGet("users", IdentityEndpoints.GetAllUsers);
         app.MapPut("users", IdentityEndpoints.UpdateProfile)
             .RequireAuthorization();
