@@ -9,7 +9,8 @@ internal static class Endpoints
     {
         app.MapGet("/", CatalogEndpoints.GetAllBooks);
         app.MapGet("/search", CatalogEndpoints.SearchBooks);
-        app.MapGet("/{id:Guid}", CatalogEndpoints.GetSingleBook);
+        app.MapGet("/{id:Guid}", CatalogEndpoints.GetSingleBookById);
+        app.MapGet("/{slug}", CatalogEndpoints.GetSingleBookBySlug);
         app.MapPost("/", CatalogEndpoints.AddNewBook);
         app.MapDelete("/{id:Guid}", CatalogEndpoints.DeleteBook);
         app.MapPut("/{id:Guid}", CatalogEndpoints.EditBookInfos);

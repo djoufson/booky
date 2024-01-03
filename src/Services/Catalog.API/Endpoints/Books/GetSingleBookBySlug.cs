@@ -10,17 +10,16 @@ namespace Catalog.API.Endpoints.Books;
 
 public partial class CatalogEndpoints
 {
-    public static async Task<Results<Ok<BookDto>, NotFound>> GetSingleBookById(
-        Guid id,
+    public static async Task<Results<Ok<BookDto>, NotFound>> GetSingleBookBySlug(
+        string slug,
         CatalogDbContext context,
         IOptions<CatalogOptions> options)
     {
         var opt = options.Value;
-        var bookId = new BookId(id);
         var book = await context.Books
             .Include(b => b.Author)
             .Include(b => b.Tags)
-            .FirstOrDefaultAsync(b => b.Id == bookId);
+            .FirstOrDefaultAsync(b => b.Slug == slug);
 
         if(book is null)
             return TypedResults.NotFound();

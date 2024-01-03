@@ -19,6 +19,10 @@
     }
 }
 
+.book-details{
+    max-height: calc(100svh - 200px);
+}
+
 #hamburger.active{
     .collapsed{
         display: none;

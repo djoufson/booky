@@ -18,7 +18,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapDefaultEndpoints();
 
-app.MapGroup("/catalog")
+app.MapGroup("/books")
     .WithTags("Catalog API")
     .MapCatalogEndpoints();
 

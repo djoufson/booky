@@ -1,0 +1,61 @@
+@page "/books/{Slug}"
+@inject CatalogService CatalogService
+@attribute [StreamRendering]
+
+<PageTitle>Booky | @Slug</PageTitle>
+
+<div class="page">
+    <div class="container">
+        <p class="mb-5 flex gap-1">
+            <a href="/books" class="underline">books</a> /
+            <a href="#" class="underline">@Slug</a>
+        </p>
+        <div class="content flex gap-4">
+            @if(BookModel is null)
+            {
+                <p>Loading ...</p>
+            }
+            else
+            {
+                <div class="cover w-1/4 mt-3">
+                    <img class="w-[300px] h-[450px]" src="@BookModel.CoverImage" alt="@BookModel.Title">
+
+                    <div class="tags flex gap-2 mt-3">
+                        @foreach(var tag in @BookModel.Tags)
+                        {
+                            <span>#@tag</span>
+                        }
+                    </div>
+                </div
+                <div class="book-details px-5 w-1/2 overflow-y-scroll">
+                    <h1 class="mb-3 text-3xl">@BookModel.Title</h1>
+                    <p>
+                        <span>By</span> 
+                        <a href="/authors/@BookModel.Author.UserName" class="underline">
+                            @BookModel.Author.FirstName @BookModel.Author.LastName
+                        </a>
+                    </p>
+                    <hr class="my-1">
+                    <h2 class="my-3 text-2xl">Synopsis</h2>
+                    <p>@BookModel.Description</p>
+                </div>
+                <div class="p-5 w-1/4">
+                    <p>Buy the book</p>
+                    <p>Price: $ @BookModel.Price USD</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public string Slug { get; set; } = string.Empty;
+
+    private BookDto? BookModel { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        BookModel = await CatalogService.GetBookAsync(Slug);
+    }
+}

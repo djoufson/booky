@@ -10,6 +10,7 @@ internal class BookConfiguration : IEntityTypeConfiguration<Book>
     public void Configure(EntityTypeBuilder<Book> builder)
     {
         builder.HasKey(b => b.Id);
+        builder.HasIndex(b => b.Slug);
         builder
             .Property(b => b.Id)
             .HasConversion(
