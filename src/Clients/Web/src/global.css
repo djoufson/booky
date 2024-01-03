@@ -45,10 +45,15 @@
 }
 
 .loader-wrapper {
-    @apply w-full h-full fixed top-0 left-0 bg-[#00000036] grid place-items-center
+    @apply w-full h-full fixed top-0 left-0 bg-[#00000036] grid place-items-center;
 }
 
 .loader {
     @apply border-t-8 border-[#e3e3e3] border-t-blue-500 border-solid w-[140px] h-[140px] rounded-full;
     animation: spin 1s linear infinite;
+}
+
+.tag{
+    @apply rounded-[10px] p-1 bg-blue-200 text-blue-700 text-xs;
+    @apply hover:text-blue-500 transition-all;
 }
