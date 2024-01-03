@@ -2,32 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-.page{
+.page {
     @apply p-16 md:pt-28;
 }
 
-.link{
+.link {
     @apply underline text-blue-600 hover:text-blue-500 transition-all cursor-pointer;
 }
 
-#hamburger{
-    .expanded{
+#hamburger {
+    .expanded {
         display: none;
     }
-    .collapsed{
+
+    .collapsed {
         display: block;
     }
 }
 
-.book-details{
+.book-details {
     max-height: calc(100svh - 200px);
 }
 
-#hamburger.active{
-    .collapsed{
+#hamburger.active {
+    .collapsed {
         display: none;
     }
-    .expanded{
+
+    .expanded {
         display: block;
     }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-wrapper {
+    @apply w-full h-full fixed top-0 left-0 bg-[#00000036] grid place-items-center
+}
+
+.loader {
+    @apply border-t-8 border-[#e3e3e3] border-t-blue-500 border-solid w-[140px] h-[140px] rounded-full;
+    animation: spin 1s linear infinite;
 }
