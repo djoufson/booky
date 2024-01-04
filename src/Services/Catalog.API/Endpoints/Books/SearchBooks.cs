@@ -1,8 +1,10 @@
 using Catalog.API.Extensions;
 using Catalog.API.Infra.Data;
+using Catalog.API.Models;
 using Catalog.API.Options;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Shared.Contracts.Catalog.Dtos;
 
@@ -18,7 +20,16 @@ public partial class CatalogEndpoints
         [FromQuery] int pageSize = 20)
     {
         var opt = options.Value;
-        var books = await CatalogDbContext.SearchByNameOrTagOrAuthor(context, searchQuery, pageNumber, pageSize).ToListAsync();
+        Book[] books = [];
+        if(!string.IsNullOrWhiteSpace(searchQuery))
+        {
+            books = await CatalogDbContext.SearchByNameOrTagOrAuthor(context, searchQuery, pageNumber, pageSize).ToArrayAsync();
+        }
+        else
+        {
+            books = await context.Books.ToArrayAsync();
+        }
+
         var response = books.Select(b => new BookDto(
             b.Id.Value.ToString(),
             b.Title,

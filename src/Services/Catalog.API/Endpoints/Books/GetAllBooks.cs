@@ -16,7 +16,7 @@ public partial class CatalogEndpoints
         int pageNumber = 1,
         int pageSize = 20)
     {
-        var books = await CatalogDbContext.GetAllBooksQuery(context, pageNumber, pageSize).ToListAsync();
+        var books = await CatalogDbContext.GetAllBooksQuery(context, pageNumber, pageSize).ToArrayAsync();
         var opt = options.Value;
 
         var response = books.Select(b => new BookDto(

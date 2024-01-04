@@ -18,8 +18,6 @@ public partial class CatalogEndpoints
         var opt = options.Value;
         var bookId = new BookId(id);
         var book = await context.Books
-            .Include(b => b.Author)
-            .Include(b => b.Tags)
             .FirstOrDefaultAsync(b => b.Id == bookId);
 
         if(book is null)

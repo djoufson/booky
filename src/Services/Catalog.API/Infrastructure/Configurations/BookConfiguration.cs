@@ -24,5 +24,8 @@ internal class BookConfiguration : IEntityTypeConfiguration<Book>
                 id => id.Value,
                 value => new AuthorId(value)
             );
+
+        builder.Navigation(b => b.Author).AutoInclude();
+        builder.Navigation(b => b.Tags).AutoInclude();
     }
 }
