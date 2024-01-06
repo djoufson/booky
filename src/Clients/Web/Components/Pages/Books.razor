@@ -1,0 +1,22 @@
+@page "/books"
+@inject CatalogService CatalogService
+
+<div class="page">
+    <div class="container">
+        @* Tags that we can filter on *@
+        <Loader/>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "tags")]
+    public string[]? Tags { get; set; }
+
+    private BookDto[]? BookList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        BookList = await CatalogService.GetAllBooksAsync();
+    }
+}

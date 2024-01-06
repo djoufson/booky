@@ -8,8 +8,7 @@ public class CatalogService(HttpClient client)
     {
         try
         {
-            var books = await client.GetFromJsonAsync<BookDto[]>("books");
-            return books ?? [];
+            return await client.GetFromJsonAsync<BookDto[]>("books") ?? [];
         }
         catch (Exception)
         {

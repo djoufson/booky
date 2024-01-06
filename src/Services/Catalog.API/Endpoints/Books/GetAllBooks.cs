@@ -2,6 +2,7 @@ using Catalog.API.Extensions;
 using Catalog.API.Infra.Data;
 using Catalog.API.Options;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Shared.Contracts.Catalog.Dtos;
@@ -10,13 +11,14 @@ namespace Catalog.API.Endpoints.Books;
 
 public partial class CatalogEndpoints
 {
-    public static async Task<Results<Ok<BookDto[]>, BadRequest>> GetAllBooks(
+    public static async Task<Results<Ok<BookDto[]>, BadRequest>> GetBooks(
+        [FromQuery] string[] tags,
         CatalogDbContext context,
         IOptions<CatalogOptions> options,
         int pageNumber = 1,
         int pageSize = 20)
     {
-        var books = await CatalogDbContext.GetAllBooksQuery(context, pageNumber, pageSize).ToArrayAsync();
+        var books = await CatalogDbContext.GetAllBooksQuery(context, pageNumber, pageSize, tags).ToArrayAsync();
         var opt = options.Value;
 
         var response = books.Select(b => new BookDto(

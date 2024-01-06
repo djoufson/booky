@@ -7,7 +7,7 @@ internal static class Endpoints
 {
     public static IEndpointRouteBuilder MapCatalogEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/", CatalogEndpoints.GetAllBooks);
+        app.MapGet("/", CatalogEndpoints.GetBooks);
         app.MapGet("/search", CatalogEndpoints.SearchBooks);
         app.MapGet("/{id:Guid}", CatalogEndpoints.GetSingleBookById);
         app.MapGet("/{slug}", CatalogEndpoints.GetSingleBookBySlug);

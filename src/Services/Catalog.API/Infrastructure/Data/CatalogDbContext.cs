@@ -15,13 +15,12 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(Program).Assembly);
     }
 
-    internal static readonly Func<CatalogDbContext, int, int, IAsyncEnumerable<Book>> GetAllBooksQuery =
-        EF.CompileAsyncQuery((CatalogDbContext ctx, int pageNumber, int pageSize) => ctx.Books
+    internal static readonly Func<CatalogDbContext, int, int, string[], IAsyncEnumerable<Book>> GetAllBooksQuery =
+        EF.CompileAsyncQuery(
+            (CatalogDbContext ctx, int pageNumber, int pageSize, string[] tags) => ctx.Books
             .AsNoTracking()
             .Skip(pageSize * (pageNumber - 1))
-            .Take(pageSize)
-            .Include(b => b.Author)
-            .Include(b => b.Tags));
+            .Take(pageSize));
 
     internal static readonly Func<CatalogDbContext, string, int, int, IAsyncEnumerable<Book>> SearchByNameOrTagOrAuthor = 
         EF.CompileAsyncQuery((CatalogDbContext ctx, string query, int pageNumber, int pageSize) => ctx.Books
@@ -32,7 +31,5 @@ public sealed class CatalogDbContext(DbContextOptions<CatalogDbContext> options)
                 b.Tags.Select(t => t.Tag.ToLower()).Any(t => t.Contains(query.ToLower())) ||
                 (b.Author.Name.Last == null) || b.Author.Name.Last.ToLower().Contains(query.ToLower()))
             .Skip(pageSize * (pageNumber - 1))
-            .Include(b => b.Author)
-            .Include(b => b.Tags)
             .Take(pageSize));
 }
