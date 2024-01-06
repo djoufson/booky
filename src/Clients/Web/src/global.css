@@ -57,3 +57,15 @@
     @apply rounded-[10px] p-1 bg-blue-200 text-blue-700 text-xs;
     @apply hover:text-blue-500 transition-all;
 }
+
+.tag-selector.active a{
+    @apply bg-blue-500 text-white hover:bg-blue-600;
+}
+
+.tag-selector a .close-icon{
+    @apply hidden;
+}
+
+.tag-selector.active a .close-icon{
+    @apply inline;
+}

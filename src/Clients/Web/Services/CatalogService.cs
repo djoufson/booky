@@ -1,14 +1,37 @@
+using System.Text;
 using Shared.Contracts.Catalog.Dtos;
 
 namespace Web.Services;
 
 public class CatalogService(HttpClient client)
 {
-    public async Task<BookDto[]> GetAllBooksAsync()
+    private readonly StringBuilder _sb = new();
+    public async Task<BookDto[]> GetAllBooksAsync(string[] tags)
     {
         try
         {
-            return await client.GetFromJsonAsync<BookDto[]>("books") ?? [];
+            _sb.Clear();
+            _sb.Append("books");
+            if(tags.Length > 0)
+            {
+                _sb
+                    .Append("?tags=")
+                    .AppendJoin("&tags=", tags);
+            }
+
+            return await client.GetFromJsonAsync<BookDto[]>(_sb.ToString()) ?? [];
+        }
+        catch (Exception)
+        {
+            return [];
+        }
+    }
+
+    public async Task<TagDto[]> GetAllTagsAsync()
+    {
+        try
+        {
+            return await client.GetFromJsonAsync<TagDto[]>("tags") ?? [];
         }
         catch (Exception)
         {

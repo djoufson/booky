@@ -26,4 +26,8 @@ app.MapGroup("/authors")
     .WithTags("Authors")
     .MapAuthorsEndpoints();
 
+app.MapGroup("/tags")
+    .WithTags("Tags")
+    .MapTagsEndpoints();
+
 app.Run();

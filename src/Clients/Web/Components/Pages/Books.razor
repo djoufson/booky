@@ -1,22 +1,46 @@
 @page "/books"
 @inject CatalogService CatalogService
+@attribute [StreamRendering]
+
+<PageTitle>Booky | Discover</PageTitle>
 
 <div class="page">
     <div class="container">
-        @* Tags that we can filter on *@
-        <Loader/>
+        @if (IsLoading)
+        {
+            <Loader />
+        }
+        else
+        {
+            @* Tags that we can filter on *@
+            <div class="md:flex md:gap-8">
+                <div class="md:w-1/4">
+                    <TagsHead Tags="@Tags" />
+                </div>
+                @if(BookList is not null)
+                {
+                    <div class="flex gap-4 flex-wrap">
+                        @foreach (var book in BookList)
+                        {
+                            <BookCard Book="@book" />
+                        }
+                    </div>
+                }
+            </div>
+        }
     </div>
 </div>
 
-@code{
+@code {
     [Parameter]
     [SupplyParameterFromQuery(Name = "tags")]
     public string[]? Tags { get; set; }
-
     private BookDto[]? BookList { get; set; }
+    private bool IsLoading { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
-        BookList = await CatalogService.GetAllBooksAsync();
+        BookList = await CatalogService.GetAllBooksAsync(Tags ?? []);
+        IsLoading = false;
     }
 }

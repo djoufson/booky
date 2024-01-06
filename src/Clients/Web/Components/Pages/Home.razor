@@ -23,7 +23,7 @@
                     <BookCard Book="@book" />
                 }
             </div>
-            <a class="mt-10 link">See all</a>
+            <a class="mt-10 link" href="/books">See all</a>
         }
     </div>
 </div>
@@ -33,6 +33,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Books = await CatalogService.GetAllBooksAsync();
+        Books = await CatalogService.GetAllBooksAsync([]);
     }
 }

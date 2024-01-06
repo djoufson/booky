@@ -1,0 +1,91 @@
+@inject CatalogService CatalogService
+@inject NavigationManager NavigationManager
+@using System.Text.RegularExpressions
+@using System.Text
+
+<h2 class="text-xl">Genres</h2>
+<a href="/books" class="underline my-4">Clear fliters</a>
+<div class="flex gap-2 flex-wrap">
+    @if (AllTags is not null)
+    {
+        foreach (var tag in AllTags)
+        {
+            <BookTag Tag="@tag.Tag" Tagged="@tag.Tagged" Url="@tag.Url" />
+        }
+    }
+</div>
+
+@code{
+    [Parameter]
+    public string[]? Tags { get; set; }
+    private TagModel[]? AllTags { get; set; }
+    private TagDto[]? SelectedTags { get; set; }
+    private const string BASE_URL = "/books";
+    private static readonly Regex _regex = new(@"tags=([^&]+)");
+    private readonly StringBuilder _urlStringBuilder = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var tags = await CatalogService.GetAllTagsAsync();
+        SelectedTags = Tags?
+            .Select(t => new TagDto(t))
+            .ToArray();
+
+        AllTags = tags
+            .Select(t => new TagModel(t, EvaluateIfTagged(t), GenerateUrl(t.Tag)))
+            .ToArray();
+
+        AllTags = AllTags
+            .GroupBy(t => t.Tagged)
+            .OrderBy(g => g.Key)
+            .Reverse()
+            .Select(g => g.OrderBy(t => t.Tag.Tag))
+            .SelectMany(t => t)
+            .ToArray();
+    }
+
+    private bool EvaluateIfTagged(TagDto tag)
+    {
+        return SelectedTags?.Contains(tag) ?? false;
+    }
+
+    private string GenerateUrl(string tag)
+    {
+        var route = NavigationManager.Uri;
+        var tags = SelectedTags?.Select(t => t.Tag).ToList() ?? [];
+        if(!tags.Remove(tag))
+        {
+            if(tags.Count < 1)
+                return route += $"?tags={tag}";
+            else
+                return route += $"&tags={tag}";
+        }
+
+        if(tags.Count < 1)
+            return $"{BASE_URL}?tags={tag}";
+
+        if(tags.Count < 2)
+            return $"{BASE_URL}?tags={tag}&tags={tags[0]}";
+
+        _urlStringBuilder.Clear();
+        _urlStringBuilder
+            .Append(BASE_URL)
+            .Append("?tags=")
+            .Append(tags[0])
+            .AppendJoin("&tags=", tags);
+
+        return _urlStringBuilder.ToString();
+    }
+
+    private static List<string> ExtractTags(string url)
+    {
+        List<string> tags = [];
+        MatchCollection matches = _regex.Matches(url);
+        foreach(var match in matches)
+            tags.Add((string)match);
+
+        return tags;
+    }
+
+    record TagModel(TagDto Tag, bool Tagged, string Url);
+}

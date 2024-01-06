@@ -24,4 +24,10 @@ internal static class Endpoints
         app.MapGet("/", AuthorsEndpoints.GetAllAuthors);
         return app;
     }
+
+    public static IEndpointRouteBuilder MapTagsEndpoints(this IEndpointRouteBuilder app)
+    {
+        app.MapGet("/", TagEndpoints.GetAllTags);
+        return app;
+    }
 }
