@@ -12,13 +12,29 @@ namespace Catalog.API.Endpoints.Books;
 public partial class CatalogEndpoints
 {
     public static async Task<Results<Ok<BookDto[]>, BadRequest>> GetBooks(
-        [FromQuery] string[] tags,
+        [FromQuery] string[]? tags,
         CatalogDbContext context,
         IOptions<CatalogOptions> options,
         int pageNumber = 1,
         int pageSize = 20)
     {
-        var books = await CatalogDbContext.GetAllBooksQuery(context, pageNumber, pageSize, tags).ToArrayAsync();
+        var query = context.Books
+            .AsNoTracking()
+            .AsQueryable();
+
+        if(tags is not null && tags.Length > 0)
+        {
+            foreach (var tag in tags)
+            {
+                query = query.Where(t => t.Tags.Any(t => t.Tag == tag));
+            }
+        }
+
+        var books = await query
+            .Skip(pageSize * (pageNumber - 1))
+            .Take(pageSize)
+            .ToArrayAsync();
+
         var opt = options.Value;
 
         var response = books.Select(b => new BookDto(

@@ -49,6 +49,9 @@
         return SelectedTags?.Contains(tag) ?? false;
     }
 
+    // Ths methos has the responsibility to build the uri for each tag
+    // The idea is to append the current tag to the query parameters
+    // or remove it if already present
     private string GenerateUrl(string tag)
     {
         var route = NavigationManager.Uri;
