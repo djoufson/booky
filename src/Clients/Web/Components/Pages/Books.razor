@@ -12,9 +12,9 @@
         }
         else
         {
-            @* Tags that we can filter on *@
             <div class="md:flex md:gap-8">
-                <div class="md:w-1/4">
+                @* Tags that we can filter on *@
+                <div class="md:w-1/4 md:min-w-[300px] md:max-w-[450px]">
                     <TagsHead Tags="@Tags" />
                 </div>
                 @if(BookList is not null)
