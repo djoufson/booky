@@ -8,5 +8,10 @@ internal class CustomerConfigurations : IEntityTypeConfiguration<Customer>
 {
     public void Configure(EntityTypeBuilder<Customer> builder)
     {
+        builder.HasIndex(c => c.Username);
+        // builder.OwnsOne(b => b.Basket);
+        builder
+            .Navigation(b => b.Basket)
+            .AutoInclude();
     }
 }

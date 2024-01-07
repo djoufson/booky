@@ -8,5 +8,12 @@ internal class CustomerBasketConfigurations : IEntityTypeConfiguration<CustomerB
 {
     public void Configure(EntityTypeBuilder<CustomerBasket> builder)
     {
+        // builder.OwnsMany(c => c.Items, cib =>
+        // {
+        //     cib.WithOwner();
+        // });
+        builder
+            .Navigation(c => c.Items)
+            .AutoInclude();
     }
 }
