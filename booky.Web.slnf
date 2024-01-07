@@ -4,6 +4,7 @@
     "projects": [
       "src\\Services\\Catalog.API\\Catalog.API.csproj",
       "src\\Services\\Identity.API\\Identity.API.csproj",
+      "src\\Services\\Basket.API\\Basket.API.csproj",
       "src\\Services\\LoadBalancer\\LoadBalancer.csproj",
       "src\\Shared\\Shared.csproj",
       "src\\Aspire\\Aspire.AppHost\\Aspire.AppHost.csproj",

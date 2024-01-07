@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\Services\Identity.API\Identity.API.csproj" />
     <ProjectReference Include="..\..\Clients\Web\Web.csproj" />
     <ProjectReference Include="..\..\Services\LoadBalancer\LoadBalancer.csproj" />
+    <ProjectReference Include="..\..\Services\Basket.API\Basket.API.csproj" />
   </ItemGroup>
 
 </Project>
