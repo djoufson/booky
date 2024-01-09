@@ -6,10 +6,12 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY ["src/Shared/Shared.csproj", "source/src/Shared/"]
+COPY ["src/Aspire/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj", "source/src/Aspire/Aspire.ServiceDefaults/"]
 COPY ["src/Services/Catalog.API/Catalog.API.csproj", "source/src/Services/Catalog.API/"]
 
 RUN dotnet restore "source/src/Shared/Shared.csproj"
 RUN dotnet restore "source/src/Services/Catalog.API/Catalog.API.csproj"
+RUN dotnet restore "source/src/Aspire/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj"
 
 COPY . .
 WORKDIR "/source/src/Services/Catalog.API"
