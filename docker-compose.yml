@@ -1,6 +1,16 @@
 version: '3.3'
 
 services:
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: src/Clients/Web/Dockerfile
+    ports:
+      - 5003:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
   catalog-api:
     container_name: catalog-api
     build:
