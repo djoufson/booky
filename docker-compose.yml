@@ -7,17 +7,30 @@ services:
       context: .
       dockerfile: src/Services/Catalog.API/Dockerfile
     depends_on:
-      - catalog-db
+      - db
     ports:
       - 5001:80
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__Postgresql=User Id=postgres;Password=postgres;Server=postgres_db;Port=5432;Database=Sms;IntegratedSecurity=true;Pooling=true;
+      - ConnectionStrings__Postgresql=User Id=postgres;Password=postgres;Server=db;Port=5432;Database=CatalogDb;IntegratedSecurity=true;Pooling=true;
+  identity-api:
+    container_name: identity-api
+    build:
+      context: .
+      dockerfile: src/Services/Identity.API/Dockerfile
+    depends_on:
+      - db
+    ports:
+      - 5002:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__Postgresql=User Id=postgres;Password=postgres;Server=db;Port=5432;Database=IdentityDb;IntegratedSecurity=true;Pooling=true;
 
-  catalog-db:
+  db:
     image: postgres
-    container_name: catalog-db
+    container_name: db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -26,7 +39,7 @@ services:
       - 5433:5433
     restart: always
     volumes:
-      - postgresdata-catalog:/var/lib/postgresql/data
+      - postgresdata:/var/lib/postgresql/data
 
 volumes:
-  postgresdata-catalog:
+  postgresdata:
