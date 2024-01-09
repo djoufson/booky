@@ -5,8 +5,7 @@ using Identity.API.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();
-builder.AddIdentityServices();
+builder.AddIdentityServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -16,8 +15,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// app.UseHttpsRedirection();
+else
+{
+    app.UseHttpsRedirection();
+}
 
 app.MapDefaultEndpoints();
 

@@ -2,6 +2,7 @@ using Identity.API.Data;
 using Identity.API.Middlewares;
 using Identity.API.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Shared.EF.Database;
 using Shared.Extensions;
 
@@ -9,9 +10,21 @@ namespace Identity.API.Extensions;
 
 public static class Extensions
 {
-    public static IHostApplicationBuilder AddIdentityServices(this IHostApplicationBuilder builder)
+    public static IHostApplicationBuilder AddIdentityServices(this IHostApplicationBuilder builder, IConfiguration configuration)
     {
-        builder.AddNpgsqlDbContext<ApplicationDbContext>("IdentityDb");
+        if(builder.Environment.IsProduction())
+        {
+            builder.Services.AddDbContext<ApplicationDbContext>(opt =>
+            {
+                opt.UseNpgsql(configuration.GetConnectionString("Postgresql"));
+            });
+        }
+        else
+        {
+            builder.AddNpgsqlDbContext<ApplicationDbContext>("IdentityDb");
+            builder.AddServiceDefaults();
+        }
+
         builder.Services.AddAuthorizationBuilder();
         builder.Services.AddScoped<UserIdMiddleware>();
         builder.Services.AddMigration<ApplicationDbContext, ApplicationUsersSeeder>();
