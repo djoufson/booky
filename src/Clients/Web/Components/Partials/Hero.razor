@@ -1,3 +1,26 @@
-<div>
-    <h1>Booky</h1>
+<div class="flex flex-col md:flex-row md:h-[300px] mb-20 gap-1 rounded-lg overflow-hidden">
+    <div class="relative flex items-center px-2 md:px-16 py-2 w-full md:w-2/3 h-[30svh] md:h-auto bg-[url(/assets/banner.png)] bg-cover bg-no-repeat">
+        <div class="absolute top-0 left-0 w-full h-full bg-[#00000042] z-0"></div>
+        @* Trending new books *@
+        <div class="z-10">
+            <h2 class="text-4xl md:text-6xl mb-8 text-white">Trending new eBooks</h2>
+            <a href="/books" class="p-4 text-white bg-blue-500 hover:bg-blue-600 transition-all">Browse now</a>
+        </div>
+    </div>
+    <div class="flex flex-col gap-1 md:w-1/3 h-2/3 md:h-auto">
+        <div class="relative flex items-center px-2 py-2 h-[30svh] md:h-1/2 bg-[url(/assets/banner2.jpg)] bg-cover bg-no-repeat">
+            <div class="absolute top-0 left-0 w-full h-full bg-[#00000042] z-0"></div>
+            @* Recommandations *@
+            <div class="z-10">
+                <a href="/books" class="text-2xl text-white hover:underline transition-all">Recommandations choosen just for you ></a>
+            </div>
+        </div>
+        <div class="relative flex items-center px-2 py-2 h-[30svh] md:h-1/2 bg-[url(/assets/banner3.jpg)] bg-cover bg-no-repeat">
+            <div class="absolute top-0 left-0 w-full h-full bg-[#00000042] z-0"></div>
+            @* Latest releases *@
+            <div class="z-10">
+                <a href="/books" class="text-2xl text-white hover:underline transition-all">Browse our latest releases ></a>
+            </div>
+        </div>
+    </div>
 </div>
