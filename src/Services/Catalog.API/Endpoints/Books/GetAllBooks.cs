@@ -15,6 +15,7 @@ public partial class CatalogEndpoints
         [FromQuery] string[]? tags,
         CatalogDbContext context,
         IOptions<CatalogOptions> options,
+        CancellationToken ct,
         int pageNumber = 1,
         int pageSize = 20)
     {
@@ -33,7 +34,7 @@ public partial class CatalogEndpoints
         var books = await query
             .Skip(pageSize * (pageNumber - 1))
             .Take(pageSize)
-            .ToArrayAsync();
+            .ToArrayAsync(ct);
 
         var opt = options.Value;
 

@@ -10,13 +10,14 @@ public partial class CatalogEndpoints
 {
     public static async Task<Results<Ok,BadRequest>> DeleteBook(
         [FromRoute] Guid id,
-        CatalogDbContext context
+        CatalogDbContext context,
+        CancellationToken ct
     )
     {
         var bookId = new BookId(id);
         await context.Books
             .Where(b => b.Id == bookId)
-            .ExecuteDeleteAsync();
+            .ExecuteDeleteAsync(ct);
 
         return TypedResults.Ok();
     }

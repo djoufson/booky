@@ -4,7 +4,7 @@ public class ImageService(IWebHostEnvironment environment)
 {
     private readonly string _folderPath = Path.Combine(environment.ContentRootPath, "Files", "Images");
 
-    public async Task<string?> Save(string fileBase64, string bookTitle)
+    public async Task<string?> Save(string fileBase64, string bookTitle, CancellationToken ct = default)
     {
         if(!Path.Exists(_folderPath))
             Directory.CreateDirectory(_folderPath);
@@ -13,7 +13,7 @@ public class ImageService(IWebHostEnvironment environment)
         string path = Path.Combine(_folderPath, fileName);
         byte[] imageBytes = Convert.FromBase64String(fileBase64);
 
-        await File.WriteAllBytesAsync(path, imageBytes);
+        await File.WriteAllBytesAsync(path, imageBytes, ct);
         return fileName;
     }
 

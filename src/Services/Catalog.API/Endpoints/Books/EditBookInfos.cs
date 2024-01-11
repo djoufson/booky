@@ -15,13 +15,14 @@ public partial class CatalogEndpoints
         [FromRoute] Guid id,
         [FromBody] EditBookInfosRequest request,
         CatalogDbContext context,
-        IOptions<CatalogOptions> options
+        IOptions<CatalogOptions> options,
+        CancellationToken ct
     )
     {
         var opt = options.Value;
         // Get the book from the Database
         var bookId = new BookId(id);
-        var book = await context.Books.FindAsync(bookId);
+        var book = await context.Books.FindAsync([bookId], ct);
         if(book is null)
             return TypedResults.NotFound();
 
@@ -35,7 +36,7 @@ public partial class CatalogEndpoints
         if(updated)
             context.Update(book);
 
-        await context.SaveChangesAsync();
+        await context.SaveChangesAsync(ct);
 
         var bookDto = new BookDto(
             book.Id.Value.ToString(),

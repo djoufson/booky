@@ -16,6 +16,7 @@ public partial class CatalogEndpoints
         [FromServices] CatalogDbContext context,
         [FromServices] IOptions<CatalogOptions> options,
         [FromQuery] string search,
+        CancellationToken ct,
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 20)
     {
@@ -27,7 +28,7 @@ public partial class CatalogEndpoints
         }
         else
         {
-            books = await context.Books.ToArrayAsync();
+            books = await context.Books.ToArrayAsync(ct);
         }
 
         var response = books.Select(b => new BookDto(

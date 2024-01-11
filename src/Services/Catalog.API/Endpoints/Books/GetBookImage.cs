@@ -10,10 +10,11 @@ public partial class CatalogEndpoints
     public static async Task<Results<PhysicalFileHttpResult,NotFound>> GetBookCover(
         Guid id,
         CatalogDbContext context,
-        ImageService imageService)
+        ImageService imageService,
+        CancellationToken ct)
     {
         var bookId = new BookId(id);
-        var book = await context.Books.FindAsync(bookId);
+        var book = await context.Books.FindAsync([bookId], ct);
         if(book is null)
         {
             return TypedResults.NotFound();

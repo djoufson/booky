@@ -18,12 +18,13 @@ public partial class CatalogEndpoints
         [FromBody] AddBookRequest request,
         CatalogDbContext context,
         ImageService imageService,
-        IOptions<CatalogOptions> options)
+        IOptions<CatalogOptions> options,
+        CancellationToken ct)
     {
         var opt = options.Value;
         // Get the author
         var authorId = new AuthorId(request.AuthorId);
-        var author = await context.Authors.FindAsync(authorId);
+        var author = await context.Authors.FindAsync([ authorId ], ct);
         if(author is null)
             return TypedResults.NotFound();
 
@@ -48,13 +49,13 @@ public partial class CatalogEndpoints
         // Get/Create the tags
         foreach (var tagItem in request.Tags)
         {
-            var tag = await context.Tags.FirstOrDefaultAsync(t => t.Tag == tagItem) ?? new BookTag(tagItem);
+            var tag = await context.Tags.FirstOrDefaultAsync(t => t.Tag == tagItem, ct) ?? new BookTag(tagItem);
             book.Tag(tag);
         }
 
         // Save to the database
-        book = (await context.AddAsync(book)).Entity;
-        await context.SaveChangesAsync();
+        book = (await context.AddAsync(book, ct)).Entity;
+        await context.SaveChangesAsync(ct);
 
         var bookDto = new BookDto(
             book.Id.Value.ToString(),

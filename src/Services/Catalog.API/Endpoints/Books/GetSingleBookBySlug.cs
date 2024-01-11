@@ -13,11 +13,12 @@ public partial class CatalogEndpoints
     public static async Task<Results<Ok<BookDto>, NotFound>> GetSingleBookBySlug(
         string slug,
         CatalogDbContext context,
-        IOptions<CatalogOptions> options)
+        IOptions<CatalogOptions> options,
+        CancellationToken ct)
     {
         var opt = options.Value;
         var book = await context.Books
-            .FirstOrDefaultAsync(b => b.Slug == slug);
+            .FirstOrDefaultAsync(b => b.Slug == slug, ct);
 
         if(book is null)
             return TypedResults.NotFound();

@@ -13,12 +13,13 @@ public partial class CatalogEndpoints
     public static async Task<Results<Ok<BookDto>, NotFound>> GetSingleBookById(
         Guid id,
         CatalogDbContext context,
-        IOptions<CatalogOptions> options)
+        IOptions<CatalogOptions> options,
+        CancellationToken ct)
     {
         var opt = options.Value;
         var bookId = new BookId(id);
         var book = await context.Books
-            .FirstOrDefaultAsync(b => b.Id == bookId);
+            .FirstOrDefaultAsync(b => b.Id == bookId, ct);
 
         if(book is null)
             return TypedResults.NotFound();
