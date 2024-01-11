@@ -3,11 +3,16 @@
 @tailwind utilities;
 
 .page {
-    @apply p-16 md:pt-28;
+    @apply p-20 md:pt-32;
 }
 
 .link {
     @apply underline text-blue-600 hover:text-blue-500 transition-all cursor-pointer;
+}
+
+.nav{
+    background: hsla(0, 0%, 100%, 0.1);
+    backdrop-filter: blur(0.5rem);
 }
 
 #hamburger {
