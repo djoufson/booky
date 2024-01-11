@@ -683,6 +683,18 @@ video {
   margin-top: 0.75rem;
 }
 
+.mb-40 {
+  margin-bottom: 10rem;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+.mb-28 {
+  margin-bottom: 7rem;
+}
+
 .flex {
   display: flex;
 }
@@ -713,6 +725,10 @@ video {
 
 .h-full {
   height: 100%;
+}
+
+.h-\[225px\] {
+  height: 225px;
 }
 
 .min-h-12 {
@@ -749,6 +765,14 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[1\] {
+  width: 1;
+}
+
+.w-\[150px\] {
+  width: 150px;
 }
 
 .min-w-\[400px\] {
