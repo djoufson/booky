@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.page {
-    @apply p-20 md:pt-32;
+.section{
+    @apply px-5 py-10 md:py-32 md:px-12;
+}
+
+*.page {
+    @apply pt-20 md:pt-32;
 }
 
 .link {

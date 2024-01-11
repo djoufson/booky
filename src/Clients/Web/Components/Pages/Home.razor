@@ -4,30 +4,38 @@
 
 <PageTitle>Booky | Home</PageTitle>
 
-<div class="page">
+<section class="section bg-blue-50 section">
     <div class="container mx-auto">
         <Hero/>
-        @if(Books is null)
-        {
-            <Loader/>
-        }
-        else if(Books.Length <= 0)
+    </div>
+</section>
+
+@if(Books is null)
+{
+    <Loader/>
+}
+
+<section class="section page">
+    <div class="container mx-auto">
+        @if(Books is not null && Books.Length <= 0)
         {
             <p>There are no book</p>
         }
-        else
+        else if(Books is not null && Books.Length > 0)
         {
-            <h1 class="text-4xl mb-5">Check out our books list</h1>
+            <div class="flex justify-between items-center mb-5">
+                <h1 class="text-2xl md:text-4xl">Check out our books list</h1>
+                <a class="link" href="/books">See all</a>
+            </div>
             <div class="flex gap-5 flex-wrap">
                 @foreach(var book in Books)
                 {
                     <BookCard Book="@book" />
                 }
             </div>
-            <a class="mt-10 link" href="/books">See all</a>
         }
     </div>
-</div>
+</section>
 
 @code{
     private BookDto[]? Books { get; set; }
