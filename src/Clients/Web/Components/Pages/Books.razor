@@ -19,11 +19,17 @@
                 </div>
                 @if(BookList is not null)
                 {
-                    <div class="flex gap-4 flex-wrap">
-                        @foreach (var book in BookList)
+                    <div>
+                        @if(!string.IsNullOrWhiteSpace(Search))
                         {
-                            <BookCard Book="@book" />
+                            <p class="text-xl mb-5">Results of search "@Search" | @BookList.Length item(s)</p>
                         }
+                        <div class="flex gap-4 flex-wrap">
+                            @foreach (var book in BookList)
+                            {
+                                <BookCard Book="@book" />
+                            }
+                        </div>
                     </div>
                 }
             </div>
@@ -35,12 +41,16 @@
     [Parameter]
     [SupplyParameterFromQuery(Name = "tags")]
     public string[]? Tags { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "search")]
+    public string? Search { get; set; }
     private BookDto[]? BookList { get; set; }
     private bool IsLoading { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
-        BookList = await CatalogService.GetAllBooksAsync(Tags ?? []);
+        BookList = await CatalogService.GetBooksAsync(Search, Tags ?? []);
         IsLoading = false;
     }
 }

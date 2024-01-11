@@ -34,6 +34,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Books = await CatalogService.GetAllBooksAsync([]);
+        Books = await CatalogService.GetBooksAsync(null, []);
     }
 }

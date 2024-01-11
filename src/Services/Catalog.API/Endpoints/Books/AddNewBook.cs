@@ -85,6 +85,7 @@ public partial class CatalogEndpoints
     {
         return title
             .ToLower()
+            .Replace("'", "_")
             .Split(" ")
             .Aggregate((crr, acc) => crr += $"-{acc}");
     }

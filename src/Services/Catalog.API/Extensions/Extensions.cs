@@ -32,8 +32,7 @@ internal static class Extensions
 
         builder.Services.AddOutputCacheRedis(options =>
         {
-            options.AddPolicy(Cache.Policies.Search, x => x.Tag(Cache.Tags.Search).Cache().SetVaryByQuery("search"));
-            options.AddPolicy(Cache.Policies.GetAllBooks, x => x.Tag(Cache.Tags.GetAll).Cache());
+            options.AddPolicy(Cache.Policies.GetBooks, x => x.Tag(Cache.Tags.GetAll).Cache().SetVaryByQuery("search", "tags", "pageNumber", "pageSize"));
             options.AddPolicy(Cache.Policies.GetAllTags, x => x.Tag(Cache.Tags.BookGenres).Cache());
             options.AddPolicy(Cache.Policies.Authors, x => x.Tag(Cache.Tags.Authors).Cache());
         });

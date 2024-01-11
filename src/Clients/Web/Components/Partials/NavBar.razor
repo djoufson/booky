@@ -45,7 +45,7 @@
     private SearchModel Model { get; set; } = new();
     void  SubmitHandler()
     {
-        NavigationManager.NavigateTo($"search?query={Model.Text}", true);
+        NavigationManager.NavigateTo($"books?search={Model.Text}");
     }
 
     class SearchModel

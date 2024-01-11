@@ -1,6 +1,5 @@
 using Catalog.API.Extensions;
 using Catalog.API.Infra.Data;
-using Catalog.API.Models;
 using Catalog.API.Options;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -12,24 +11,44 @@ namespace Catalog.API.Endpoints.Books;
 
 public partial class CatalogEndpoints
 {
-    public static async Task<Results<Ok<BookDto[]>, NotFound>> SearchBooks(
-        [FromServices] CatalogDbContext context,
-        [FromServices] IOptions<CatalogOptions> options,
-        [FromQuery] string search,
+    public static async Task<Results<Ok<BookDto[]>, BadRequest>> GetBooks(
+        [FromQuery] string? search,
+        [FromQuery] string[]? tags,
+        CatalogDbContext context,
+        IOptions<CatalogOptions> options,
         CancellationToken ct,
-        [FromQuery] int pageNumber = 1,
-        [FromQuery] int pageSize = 20)
+        int pageNumber = 1,
+        int pageSize = 20)
     {
-        var opt = options.Value;
-        Book[] books = [];
+        var query = context.Books
+            .AsNoTracking()
+            .AsQueryable();
+
+        // filter by the search term
         if(!string.IsNullOrWhiteSpace(search))
         {
-            books = await CatalogDbContext.SearchByNameOrTagOrAuthor(context, search, pageNumber, pageSize).ToArrayAsync();
+            query = query.Where(b =>
+                b.Title.ToLower().Contains(search.ToLower()) ||
+                b.Author.Name.First.ToLower().Contains(search.ToLower()) ||
+                b.Tags.Select(t => t.Tag.ToLower()).Any(t => t.Contains(search.ToLower())) ||
+                (b.Author.Name.Last == null) || b.Author.Name.Last.ToLower().Contains(search.ToLower()));
         }
-        else
+
+        // filter by tags
+        if(tags is not null && tags.Length > 0)
         {
-            books = await context.Books.ToArrayAsync(ct);
+            foreach (var tag in tags)
+            {
+                query = query.Where(t => t.Tags.Any(t => t.Tag == tag));
+            }
         }
+
+        var books = await query
+            .Skip(pageSize * (pageNumber - 1))
+            .Take(pageSize)
+            .ToArrayAsync(ct);
+
+        var opt = options.Value;
 
         var response = books.Select(b => new BookDto(
             b.Id.Value.ToString(),
