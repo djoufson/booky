@@ -15,15 +15,15 @@ public partial class CatalogEndpoints
     public static async Task<Results<Ok<BookDto[]>, NotFound>> SearchBooks(
         [FromServices] CatalogDbContext context,
         [FromServices] IOptions<CatalogOptions> options,
-        [FromQuery] string searchQuery,
+        [FromQuery] string search,
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 20)
     {
         var opt = options.Value;
         Book[] books = [];
-        if(!string.IsNullOrWhiteSpace(searchQuery))
+        if(!string.IsNullOrWhiteSpace(search))
         {
-            books = await CatalogDbContext.SearchByNameOrTagOrAuthor(context, searchQuery, pageNumber, pageSize).ToArrayAsync();
+            books = await CatalogDbContext.SearchByNameOrTagOrAuthor(context, search, pageNumber, pageSize).ToArrayAsync();
         }
         else
         {

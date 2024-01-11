@@ -1,3 +1,4 @@
+using Catalog.API.Caching;
 using Catalog.API.Endpoints.Authors;
 using Catalog.API.Endpoints.Books;
 
@@ -7,8 +8,8 @@ internal static class Endpoints
 {
     public static IEndpointRouteBuilder MapCatalogEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/", CatalogEndpoints.GetBooks);
-        app.MapGet("/search", CatalogEndpoints.SearchBooks);
+        app.MapGet("/", CatalogEndpoints.GetBooks).CacheOutput(Cache.Policies.GetAllBooks);
+        app.MapGet("/search", CatalogEndpoints.SearchBooks).CacheOutput(Cache.Policies.Search);
         app.MapGet("/{id:Guid}", CatalogEndpoints.GetSingleBookById);
         app.MapGet("/{slug}", CatalogEndpoints.GetSingleBookBySlug);
         app.MapPost("/", CatalogEndpoints.AddNewBook);
@@ -21,13 +22,13 @@ internal static class Endpoints
 
     public static IEndpointRouteBuilder MapAuthorsEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/", AuthorsEndpoints.GetAllAuthors);
+        app.MapGet("/", AuthorsEndpoints.GetAllAuthors).CacheOutput(Cache.Policies.Authors);
         return app;
     }
 
     public static IEndpointRouteBuilder MapTagsEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/", TagEndpoints.GetAllTags);
+        app.MapGet("/", TagEndpoints.GetAllTags).CacheOutput(Cache.Policies.GetAllTags);
         return app;
     }
 }

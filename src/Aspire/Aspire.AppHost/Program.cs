@@ -1,5 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 var postgres = builder.AddPostgresContainer("postgres");
+var redisCache = builder.AddRedisContainer("redis");
 
 var catalogDb = postgres.AddDatabase("CatalogDb");
 var identityDb = postgres.AddDatabase("IdentityDb");
@@ -7,6 +8,7 @@ var basketDb = postgres.AddDatabase("BasketDb");
 
 var catalogApi = builder
     .AddProject<Projects.Catalog_API>("catalog-api")
+    .WithReference(redisCache)
     .WithReference(catalogDb);
 
 var identityApi = builder

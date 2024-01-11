@@ -18,6 +18,8 @@ else
     app.UseHttpsRedirection();
 }
 
+app.UseOutputCache();
+
 app.MapGroup("/books")
     .WithTags("Catalog API")
     .MapCatalogEndpoints();
