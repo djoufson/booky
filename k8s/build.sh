@@ -18,3 +18,7 @@ kubectl apply -f ./k8s/catalog-service/catalog-depl.yaml
 # identity-service concerns
 kubectl apply -f ./k8s/identity-service/identity-config.yaml 
 kubectl apply -f ./k8s/identity-service/identity-depl.yaml
+
+# Yarp load-balancer concerns
+kubectl apply -f ./k8s/load-balancer/load-balancer-config.yaml
+kubectl apply -f ./k8s/load-balancer/load-balancer-depl.yaml
