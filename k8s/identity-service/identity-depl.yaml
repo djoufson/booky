@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalog-api
+  name: identity-service
 spec:
   selector:
     matchLabels:
-      app: catalog-api
+      app: identity-service
   template:
     metadata:
       labels:
-        app: catalog-api
+        app: identity-service
     spec:
       containers:
-      - name: catalog-api
-        image: djoufson/booky-catalog-api:latest
+      - name: identity-service
+        image: djoufson/booky-identity-api:latest
         resources:
           limits:
             memory: "128Mi"
@@ -24,23 +24,18 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           valueFrom:
             configMapKeyRef:
-              key: catalog-config
+              key: identity-config
               value: dev-environment
         - name: ASPNETCORE_URLS
           valueFrom:
             configMapKeyRef:
-              key: catalog-config
+              key: identity-config
               value: urls
         - name: ConnectionStrings__Postgresql
           valueFrom:
             configMapKeyRef:
-              key: catalog-config
+              key: identity-config
               value: postgres-conn-string
-        - name: CatalogOptions__PicBaseUrl
-          valueFrom:
-            configMapKeyRef:
-              key: catalog-config
-              value: picture-url
         - name: Postgresql__UserId
           valueFrom:
             secretKeyRef:
@@ -62,11 +57,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: catalog-api
+  name: identity-api
 spec:
   type: ClusterIP
   selector:
-    app: catalog-api
+    app: identity-service
   ports:
-  - port: 5001
+  - port: 5002
     targetPort: 80

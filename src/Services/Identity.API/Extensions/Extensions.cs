@@ -1,6 +1,7 @@
 using Identity.API.Data;
 using Identity.API.Middlewares;
 using Identity.API.Models;
+using Identity.API.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared.EF.Database;
@@ -14,9 +15,17 @@ public static class Extensions
     {
         if(builder.Environment.IsProduction())
         {
+            var npgslConn = configuration.GetConnectionString("Postgresql")!;
+            var options = configuration.GetRequiredSection(PostgresqlOptions.SectionName).Get<PostgresqlOptions>();
+            npgslConn = npgslConn
+                .Replace("[0]", options.UserId)
+                .Replace("[1]", options.UserPassword)
+                .Replace("[2]", options.Server)
+                .Replace("[3]", options.Port.ToString());
+
             builder.Services.AddDbContext<ApplicationDbContext>(opt =>
             {
-                opt.UseNpgsql(configuration.GetConnectionString("Postgresql"));
+                opt.UseNpgsql(npgslConn);
             });
             builder.Services.AddMigration<ApplicationDbContext>();
         }

@@ -11,3 +11,5 @@ kubectl apply -f ./k8s/catalog-service/catalog-config.yaml
 kubectl apply -f ./k8s/catalog-service/catalog-depl.yaml
 
 # identity-service concerns
+kubectl apply -f ./k8s/identity-service/identity-config.yaml 
+kubectl apply -f ./k8s/identity-service/identity-depl.yaml
