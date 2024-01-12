@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-balancer
+spec:
+  selector:
+    matchLabels:
+      app: load-balancer
+  template:
+    metadata:
+      labels:
+        app: load-balancer
+    spec:
+      containers:
+      - name: load-balancer
+        image: djoufson/booky-load-balancer:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              key: load-balancer-config
+              value: dev-environment
+        - name: ASPNETCORE_URLS
+          valueFrom:
+            configMapKeyRef:
+              key: load-balancer-config
+              value: urls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+spec:
+  type: NodePort
+  selector:
+    app: load-balancer
+  ports:
+  - port: 5004
+    targetPort: 80
+    nodePort: 30002

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: load-balancer-config
+data:
+  dev-environment: Production
+  urls: http://+:80
