@@ -25,7 +25,7 @@ WORKDIR /app
 EXPOSE 80
 
 # Copy the published output from the 'publish' stage
-COPY --from=build /app .
+COPY --from=publish /app/publish .
 
 # Set the entry point for the application
 ENTRYPOINT ["dotnet", "LoadBalancer.dll"]

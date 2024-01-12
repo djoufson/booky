@@ -34,12 +34,15 @@ services:
     depends_on:
       - db
       - identity-api
+      - redis
     ports:
       - 5001:80
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__Postgresql=User Id=postgres;Password=postgres;Server=db;Port=5432;Database=CatalogDb;IntegratedSecurity=true;Pooling=true;
+      - ConnectionStrings__Redis=redis:6379
+      - CatalogOptions__PicBaseUrl=http://localhost:5004/c/books/[0]/image/
   identity-api:
     container_name: identity-api
     build:
@@ -53,7 +56,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__Postgresql=User Id=postgres;Password=postgres;Server=db;Port=5432;Database=IdentityDb;IntegratedSecurity=true;Pooling=true;
-
+  redis:
+      image: "redis"
+      container_name: "redis-container"
+      ports:
+        - 6379:6379
   db:
     image: postgres
     container_name: db

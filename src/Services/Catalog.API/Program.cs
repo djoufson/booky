@@ -11,12 +11,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.MapDefaultEndpoints();
 }
 else
 {
     app.UseHttpsRedirection();
 }
+
+app.MapDefaultEndpoints();
 
 app.UseOutputCache();
 

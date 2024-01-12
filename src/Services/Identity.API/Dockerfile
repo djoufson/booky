@@ -9,9 +9,7 @@ COPY ["src/Shared/Shared.csproj", "source/src/Shared/"]
 COPY ["src/Aspire/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj", "source/src/Aspire/Aspire.ServiceDefaults/"]
 COPY ["src/Services/Identity.API/Identity.API.csproj", "source/src/Services/Identity.API/"]
 
-RUN dotnet restore "source/src/Shared/Shared.csproj"
 RUN dotnet restore "source/src/Services/Identity.API/Identity.API.csproj"
-RUN dotnet restore "source/src/Aspire/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj"
 
 COPY . .
 WORKDIR "/source/src/Services/Identity.API"
@@ -27,7 +25,7 @@ WORKDIR /app
 EXPOSE 80
 
 # Copy the published output from the 'publish' stage
-COPY --from=build /app .
+COPY --from=publish /app/publish .
 
 # Set the entry point for the application
 ENTRYPOINT ["dotnet", "Identity.API.dll"]

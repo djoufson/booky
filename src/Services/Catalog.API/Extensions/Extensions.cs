@@ -22,14 +22,17 @@ internal static class Extensions
             {
                 opt.UseNpgsql(configuration.GetConnectionString("Postgresql"));
             });
-        }
-        else
-        {
-            builder.AddServiceDefaults();
-            builder.AddRedis("redis");
-            builder.AddNpgsqlDbContext<CatalogDbContext>("CatalogDb");
+            builder.Services.AddMigration<CatalogDbContext>();
         }
 
+        else
+        {
+            builder.AddRedis("redis");
+            builder.AddNpgsqlDbContext<CatalogDbContext>("CatalogDb");
+            builder.Services.AddMigration<CatalogDbContext, BooksCatalogSeeder>();
+        }
+
+        builder.AddServiceDefaults();
         builder.Services.AddOutputCacheRedis(options =>
         {
             options.AddPolicy(Cache.Policies.GetBooks, x => x.Tag(Cache.Tags.GetAll).Cache().SetVaryByQuery("search", "tags", "pageNumber", "pageSize"));
@@ -37,7 +40,6 @@ internal static class Extensions
             options.AddPolicy(Cache.Policies.Authors, x => x.Tag(Cache.Tags.Authors).Cache());
         });
         builder.Services.AddScoped<ImageService>();
-        builder.Services.AddMigration<CatalogDbContext, BooksCatalogSeeder>();
         builder.Services.AddSwaggerGen();
         builder.Services.AddProblemDetails();
         builder.Services.AddEndpointsApiExplorer();

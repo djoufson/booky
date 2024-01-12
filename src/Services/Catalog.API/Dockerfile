@@ -8,10 +8,9 @@ WORKDIR /source
 COPY ["src/Shared/Shared.csproj", "source/src/Shared/"]
 COPY ["src/Aspire/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj", "source/src/Aspire/Aspire.ServiceDefaults/"]
 COPY ["src/Services/Catalog.API/Catalog.API.csproj", "source/src/Services/Catalog.API/"]
+COPY ["src/Services/Catalog.API/Files/", "/app/Files"]
 
-RUN dotnet restore "source/src/Shared/Shared.csproj"
 RUN dotnet restore "source/src/Services/Catalog.API/Catalog.API.csproj"
-RUN dotnet restore "source/src/Aspire/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj"
 
 COPY . .
 WORKDIR "/source/src/Services/Catalog.API"
@@ -27,7 +26,7 @@ WORKDIR /app
 EXPOSE 80
 
 # Copy the published output from the 'publish' stage
-COPY --from=build /app .
+COPY --from=publish /app/publish .
 
 # Set the entry point for the application
 ENTRYPOINT ["dotnet", "Catalog.API.dll"]

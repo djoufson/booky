@@ -18,16 +18,17 @@ public static class Extensions
             {
                 opt.UseNpgsql(configuration.GetConnectionString("Postgresql"));
             });
+            builder.Services.AddMigration<ApplicationDbContext>();
         }
         else
         {
             builder.AddNpgsqlDbContext<ApplicationDbContext>("IdentityDb");
-            builder.AddServiceDefaults();
+            builder.Services.AddMigration<ApplicationDbContext, ApplicationUsersSeeder>();
         }
 
+        builder.AddServiceDefaults();
         builder.Services.AddAuthorizationBuilder();
         builder.Services.AddScoped<UserIdMiddleware>();
-        builder.Services.AddMigration<ApplicationDbContext, ApplicationUsersSeeder>();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services

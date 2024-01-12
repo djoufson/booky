@@ -10,6 +10,8 @@ builder.Services
 
 var app = builder.Build();
 
+app.MapDefaultEndpoints();
+
 app.MapReverseProxy();
 
 app.Run();
