@@ -36,6 +36,11 @@ spec:
             configMapKeyRef:
               key: catalog-config
               value: postgres-conn-string
+        - name: ConnectionStrings__Redis
+          valueFrom:
+            configMapKeyRef:
+              key: redis-config
+              value: redis-url
         - name: CatalogOptions__PicBaseUrl
           valueFrom:
             configMapKeyRef:
