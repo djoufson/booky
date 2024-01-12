@@ -17,10 +17,18 @@ internal static class Extensions
     {
         if(builder.Environment.IsProduction())
         {
+            var npgslConn = configuration.GetConnectionString("Postgresql")!;
+            var options = configuration.GetRequiredSection(PostgresqlOptions.SectionName).Get<PostgresqlOptions>();
+            npgslConn = npgslConn
+                .Replace("[0]", options.UserId)
+                .Replace("[1]", options.UserPassword)
+                .Replace("[2]", options.Server)
+                .Replace("[3]", options.Port.ToString());
+
             builder.Services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")!));
             builder.Services.AddDbContext<CatalogDbContext>(opt =>
             {
-                opt.UseNpgsql(configuration.GetConnectionString("Postgresql"));
+                opt.UseNpgsql(npgslConn);
             });
             builder.Services.AddMigration<CatalogDbContext>();
         }

@@ -1,0 +1,1 @@
+# Script that applies the k8s configurations
