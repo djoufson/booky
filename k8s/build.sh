@@ -22,3 +22,7 @@ kubectl apply -f ./k8s/identity-service/identity-depl.yaml
 # Yarp load-balancer concerns
 kubectl apply -f ./k8s/load-balancer/load-balancer-config.yaml
 kubectl apply -f ./k8s/load-balancer/load-balancer-depl.yaml
+
+# Web frontend deployments
+kubectl apply -f ./k8s/web/web-config.yaml
+kubectl apply -f ./k8s/web/web-depl.yaml
