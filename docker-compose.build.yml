@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: src/Clients/Web/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: src/Services/LoadBalancer/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+  catalog-api:
+    container_name: catalog-api
+    build:
+      context: .
+      dockerfile: src/Services/Catalog.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+  identity-api:
+    container_name: identity-api
+    build:
+      context: .
+      dockerfile: src/Services/Identity.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80

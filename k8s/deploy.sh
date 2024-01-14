@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 # Script that applies the k8s configurations
 
 # Redis cache
