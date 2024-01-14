@@ -10,9 +10,9 @@ fi
 docker-compose -f docker-compose.build.yml config --services | xargs -I {} docker-compose -f docker-compose.build.yml build {}
 
 # Set DockerHub username from .env file
-DOCKER_USERNAME=${DOCKER_USERNAME:-your_default_username}
+DOCKER_USERNAME=${DOCKER_USERNAME:-djoufson}
 
-IMAGE_NAME_PREFIX=$DOCKER_USERNAME/your_repository_name # Replace with your DockerHub repository name
+IMAGE_NAME_PREFIX=$DOCKER_USERNAME/booky # Replace with your DockerHub repository name
 
 # Login to DockerHub
 docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
