@@ -28,17 +28,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Set DockerHub username as an environment variable
-        run: echo "DOCKER_USERNAME=${{ github.actor }}" >> $GITHUB_ENV
-
       - name: Tag and Push Docker images
         run: |
-          DOCKER_USERNAME=${{ env.DOCKER_USERNAME }}
-          IMAGE_NAME_PREFIX=$DOCKER_USERNAME/$GITHUB_REPOSITORY
+          DOCKER_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+          IMAGE_NAME_PREFIX=$DOCKER_USERNAME/booky
 
           # Loop through the services in docker-compose.build.yml
           for service in $(docker-compose -f docker-compose.build.yml config --services); do
             docker tag $service:latest $IMAGE_NAME_PREFIX/$service:latest
-            docker push $IMAGE_NAME_PREFIX/$service:latest
-            echo "Docker image pushed to DockerHub: $IMAGE_NAME_PREFIX/$service:latest"
+            docker push $IMAGE_NAME_PREFIX-$service:latest
+            echo "Docker image pushed to DockerHub: $IMAGE_NAME_PREFIX-$service:latest"
           done
