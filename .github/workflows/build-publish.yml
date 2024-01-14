@@ -34,6 +34,7 @@ jobs:
           IMAGE_NAME_PREFIX=$DOCKER_USERNAME/booky
 
           # Loop through the services in docker-compose.build.yml
+          docker image ls
           for service in $(docker-compose -f docker-compose.build.yml config --services); do
             docker tag booky-$service $IMAGE_NAME_PREFIX/$service:latest
             docker push $IMAGE_NAME_PREFIX-$service:latest

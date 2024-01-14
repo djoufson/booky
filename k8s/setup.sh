@@ -20,7 +20,11 @@ docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
 # Loop through the services in docker-compose.build.yml
 for service in $(docker-compose -f docker-compose.build.yml config --services); do
     # Tag Docker images
+<<<<<<< HEAD
     docker tag booky-$service $IMAGE_NAME_PREFIX-$service:latest
+=======
+    docker tag booky-$service:latest $IMAGE_NAME_PREFIX-$service:latest
+>>>>>>> 82b2cb158300629b5ecf5ba8b25c3a6b93c5f8d4
     echo "Docker image tagged as $IMAGE_NAME_PREFIX-$service:latest"
 
     # Push Docker images to DockerHub
