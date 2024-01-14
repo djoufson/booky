@@ -24,13 +24,13 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           valueFrom:
             configMapKeyRef:
-              key: web-config
-              value: dev-environment
+              name: web-config
+              key: dev-environment
         - name: ASPNETCORE_URLS
           valueFrom:
             configMapKeyRef:
-              key: web-config
-              value: urls
+              name: web-config
+              key: urls
 ---
 apiVersion: v1
 kind: Service

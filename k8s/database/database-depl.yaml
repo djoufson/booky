@@ -49,4 +49,3 @@ spec:
   ports:
   - port: 5433
     targetPort: 5433
-    nodePort: 30000

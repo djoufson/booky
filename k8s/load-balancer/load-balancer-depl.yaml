@@ -24,13 +24,13 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           valueFrom:
             configMapKeyRef:
-              key: load-balancer-config
-              value: dev-environment
+              name: load-balancer-config
+              key: dev-environment
         - name: ASPNETCORE_URLS
           valueFrom:
             configMapKeyRef:
-              key: load-balancer-config
-              value: urls
+              name: load-balancer-config
+              key: urls
 ---
 apiVersion: v1
 kind: Service

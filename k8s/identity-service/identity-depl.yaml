@@ -24,33 +24,33 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           valueFrom:
             configMapKeyRef:
-              key: identity-config
-              value: dev-environment
+              name: identity-config
+              key: dev-environment
         - name: ASPNETCORE_URLS
           valueFrom:
             configMapKeyRef:
-              key: identity-config
-              value: urls
+              name: identity-config
+              key: urls
         - name: ConnectionStrings__Postgresql
           valueFrom:
             configMapKeyRef:
-              key: identity-config
-              value: postgres-conn-string
+              name: identity-config
+              key: postgres-conn-string
         - name: Postgresql__UserId
           valueFrom:
             secretKeyRef:
-              key: postgres-config
-              value: postgres-user
+              name: postgres-config
+              key: postgres-user
         - name: Postgresql__UserPassword
           valueFrom:
             secretKeyRef:
-              key: postgres-config
-              value: postgres-password
+              name: postgres-config
+              key: postgres-password
         - name: Postgresql__Server
           valueFrom:
             configMapKeyRef:
-              key: postgres-config
-              value: db-url
+              name: postgres-config
+              key: db-url
         - name: Postgresql__Port
           value: "5433"
 ---

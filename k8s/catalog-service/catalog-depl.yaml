@@ -24,43 +24,43 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           valueFrom:
             configMapKeyRef:
-              key: catalog-config
-              value: dev-environment
+              name: catalog-config
+              key: dev-environment
         - name: ASPNETCORE_URLS
           valueFrom:
             configMapKeyRef:
-              key: catalog-config
-              value: urls
+              name: catalog-config
+              key: urls
         - name: ConnectionStrings__Postgresql
           valueFrom:
             configMapKeyRef:
-              key: catalog-config
-              value: postgres-conn-string
+              name: catalog-config
+              key: postgres-conn-string
         - name: ConnectionStrings__Redis
           valueFrom:
             configMapKeyRef:
-              key: redis-config
-              value: redis-url
+              name: redis-config
+              key: redis-url
         - name: CatalogOptions__PicBaseUrl
           valueFrom:
             configMapKeyRef:
-              key: catalog-config
-              value: picture-url
+              name: catalog-config
+              key: picture-url
         - name: Postgresql__UserId
           valueFrom:
             secretKeyRef:
-              key: postgres-config
-              value: postgres-user
+              name: postgres-config
+              key: postgres-user
         - name: Postgresql__UserPassword
           valueFrom:
             secretKeyRef:
-              key: postgres-config
-              value: postgres-password
+              name: postgres-config
+              key: postgres-password
         - name: Postgresql__Server
           valueFrom:
             configMapKeyRef:
-              key: postgres-config
-              value: db-url
+              name: postgres-config
+              key: db-url
         - name: Postgresql__Port
           value: "5433"
 ---
