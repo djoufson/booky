@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Docker
-        uses: docker/setup-docker@latest-version
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Docker images
         run: docker-compose -f docker-compose.build.yml config --services | xargs -I {} docker-compose -f docker-compose.build.yml build {}
