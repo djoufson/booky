@@ -35,7 +35,7 @@ jobs:
 
           # Loop through the services in docker-compose.build.yml
           for service in $(docker-compose -f docker-compose.build.yml config --services); do
-            docker tag $service:latest $IMAGE_NAME_PREFIX/$service:latest
+            docker tag booky-$service:latest $IMAGE_NAME_PREFIX/$service:latest
             docker push $IMAGE_NAME_PREFIX-$service:latest
             echo "Docker image pushed to DockerHub: $IMAGE_NAME_PREFIX-$service:latest"
           done
