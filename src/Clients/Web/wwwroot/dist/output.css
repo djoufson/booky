@@ -985,6 +985,18 @@ video {
   transition-duration: 150ms;
 }
 
+*{
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.logo{
+  font-family: 'Pacifico', cursive;
+}
+
+.title{
+  font-family: 'Pacifico', cursive;
+}
+
 .section {
   padding-left: 1.25rem;
   padding-right: 1.25rem;

@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.logo{
+    font-family: 'Pacifico', cursive;
+}
+
+.title{
+    font-family: 'Pacifico', cursive;
+}
+
 .section{
     @apply px-5 py-10 md:py-32 md:px-12;
 }
