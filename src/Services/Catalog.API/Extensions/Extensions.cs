@@ -25,6 +25,12 @@ internal static class Extensions
                 .Replace("[2]", options.Server)
                 .Replace("[3]", options.Port.ToString());
 
+            Console.WriteLine($"--> User ID: {options.UserId}");
+            Console.WriteLine($"--> Password: {options.UserPassword}");
+            Console.WriteLine($"--> Server: {options.Server}");
+            Console.WriteLine($"--> Port: {options.Port}");
+            Console.WriteLine($"--> Conn string: {npgslConn}");
+
             builder.Services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")!));
             builder.Services.AddDbContext<CatalogDbContext>(opt =>
             {

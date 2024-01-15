@@ -20,7 +20,7 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 5433
+        - containerPort: 5432
         env:
         - name: POSTGRES_USER
           valueFrom:
@@ -47,5 +47,5 @@ spec:
   selector:
     app: postgres-db
   ports:
-  - port: 5433
-    targetPort: 5433
+  - port: 5432
+    targetPort: 5432

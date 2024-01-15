@@ -52,7 +52,7 @@ spec:
               name: postgres-config
               key: db-url
         - name: Postgresql__Port
-          value: "5433"
+          value: "5432"
 ---
 apiVersion: v1
 kind: Service

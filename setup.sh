@@ -25,5 +25,5 @@ for service in $(docker-compose -f docker-compose.build.yml config --services); 
 
     # Push Docker images to DockerHub
     docker push $IMAGE_NAME_PREFIX/$service:latest
-    echo "Docker image pushed to DockerHub: $IMAGE_NAME_PREFIX/$service:latest"
+    echo "Docker image pushed to DockerHub: $IMAGE_NAME_PREFIX-$service:latest"
 done

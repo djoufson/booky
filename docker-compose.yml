@@ -3,9 +3,7 @@ version: '3.3'
 services:
   web:
     container_name: web
-    build:
-      context: .
-      dockerfile: src/Clients/Web/Dockerfile
+    image: djoufson/booky-web:latest
     depends_on:
       - api
     ports:
@@ -15,9 +13,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
   api:
     container_name: api
-    build:
-      context: .
-      dockerfile: src/Services/LoadBalancer/Dockerfile
+    image: djoufson/booky-api:latest
     depends_on:
       - identity-api
       - catalog-api
@@ -28,9 +24,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
   catalog-api:
     container_name: catalog-api
-    build:
-      context: .
-      dockerfile: src/Services/Catalog.API/Dockerfile
+    image: djoufson/booky-catalog-api:latest
     depends_on:
       - db
       - identity-api
@@ -45,9 +39,7 @@ services:
       - CatalogOptions__PicBaseUrl=http://localhost:5004/c/books/[0]/image/
   identity-api:
     container_name: identity-api
-    build:
-      context: .
-      dockerfile: src/Services/Identity.API/Dockerfile
+    image: djoufson/booky-identity-api
     depends_on:
       - db
     ports:
@@ -56,6 +48,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__Postgresql=User Id=postgres;Password=postgres;Server=db;Port=5432;Database=IdentityDb;IntegratedSecurity=true;Pooling=true;
+      - Postgresql__UserId=postgres
+      - Postgresql__UserPassword=postgres
+      - Postgresql__Server=db
+      - Postgresql__Port=5432
   redis:
       image: "redis"
       container_name: "redis-container"
