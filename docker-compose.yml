@@ -3,28 +3,28 @@ version: '3.3'
 services:
   web:
     container_name: web
-    image: djoufson/booky-web:latest
+    image: ${DOCKER_USERNAME}/booky-web:latest
     depends_on:
       - api
     ports:
       - 5003:80
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:80
   api:
     container_name: api
-    image: djoufson/booky-api:latest
+    image: ${DOCKER_USERNAME}/booky-api:latest
     depends_on:
       - identity-api
       - catalog-api
     ports:
       - 5004:80
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:80
   catalog-api:
     container_name: catalog-api
-    image: djoufson/booky-catalog-api:latest
+    image: ${DOCKER_USERNAME}/booky-catalog-api:latest
     depends_on:
       - db
       - identity-api
@@ -32,26 +32,26 @@ services:
     ports:
       - 5001:80
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__Postgresql=User Id=postgres;Password=postgres;Server=db;Port=5432;Database=CatalogDb;IntegratedSecurity=true;Pooling=true;
-      - ConnectionStrings__Redis=redis:6379
-      - CatalogOptions__PicBaseUrl=http://localhost:5004/c/books/[0]/image/
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:80
+      ConnectionStrings__Postgresql: User Id=postgres;Password=postgres;Server=db;Port=5432;Database=CatalogDb;IntegratedSecurity=true;Pooling=true;
+      ConnectionStrings__Redis: redis:6379
+      CatalogOptions__PicBaseUrl: http://localhost:5004/c/books/[0]/image/
   identity-api:
     container_name: identity-api
-    image: djoufson/booky-identity-api
+    image: ${DOCKER_USERNAME}/booky-identity-api
     depends_on:
       - db
     ports:
       - 5002:80
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__Postgresql=User Id=postgres;Password=postgres;Server=db;Port=5432;Database=IdentityDb;IntegratedSecurity=true;Pooling=true;
-      - Postgresql__UserId=postgres
-      - Postgresql__UserPassword=postgres
-      - Postgresql__Server=db
-      - Postgresql__Port=5432
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:80
+      ConnectionStrings__Postgresql: User Id=postgres;Password=postgres;Server=db;Port=5432;Database=IdentityDb;IntegratedSecurity=true;Pooling=true;
+      Postgresql__UserId: postgres
+      Postgresql__UserPassword: postgres
+      Postgresql__Server: db
+      Postgresql__Port: 5432
   redis:
       image: "redis"
       container_name: "redis-container"
@@ -61,9 +61,9 @@ services:
     image: postgres
     container_name: db
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - 5433:5433
     restart: always
