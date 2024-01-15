@@ -6,7 +6,7 @@
             <a class="p-1 self-center logo text-xl" href="/" target="_parent">Booky</a>
             <EditForm FormName="search-form" Model="@Model" OnSubmit="SubmitHandler" class="search-bar flex">
                 <InputText @bind-Value="Model.Text" class="p-1 md:p-4 w-auto md:w-80 border-blue-500 border-x-2 border-y-2 border-solid" required placeholder="Search by title, author or genre" />
-                <button class="bg-blue-600 text-white p-2 md:p-4 hover:bg-blue-500 transition-all active:bg-blue-400" type="submit">
+                <button class="btn" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="m29 27.586l-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29ZM4 13a9 9 0 1 1 9 9a9.01 9.01 0 0 1-9-9"/></svg>
                 </button>
             </EditForm>
@@ -17,8 +17,8 @@
         </button>
         <div id="menu" class="md:flex flex-col md:flex-row hidden absolute top-0 left-0 w-full md:w-fit z-40 md:relative md:left-[auto] md:top-[auto]">
             <NavLink href="/cart" class="py-1 px-4 flex flex-col group">
-                <svg class="group-hover:fill-blue-500 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="10" cy="28" r="2"/><circle cx="24" cy="28" r="2"/><path d="M28 7H5.82L5 2.8A1 1 0 0 0 4 2H0v2h3.18L7 23.2a1 1 0 0 0 1 .8h18v-2H8.82L8 18h18a1 1 0 0 0 1-.78l2-9A1 1 0 0 0 28 7m-2.8 9H7.62l-1.4-7h20.53Z"/></svg>
-                <span class="group-hover:text-blue-500 transition-all">Cart</span>
+                <svg class="group-hover:fill-blue-600 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="10" cy="28" r="2"/><circle cx="24" cy="28" r="2"/><path d="M28 7H5.82L5 2.8A1 1 0 0 0 4 2H0v2h3.18L7 23.2a1 1 0 0 0 1 .8h18v-2H8.82L8 18h18a1 1 0 0 0 1-.78l2-9A1 1 0 0 0 28 7m-2.8 9H7.62l-1.4-7h20.53Z"/></svg>
+                <span class="group-hover:text-blue-600 transition-all">Cart</span>
             </NavLink>
             <AuthorizeView>
                 <Authorized>
@@ -28,10 +28,10 @@
                 </Authorized>
                 <NotAuthorized>
                     <div class="flex flex-col gap-1">
-                        <NavLink href="/register" class="p-4 bg-blue-600 hover:bg-blue-500 text-white text-center transition-all active:bg-blue-400">Create account</NavLink>
+                        <NavLink href="/register" class="btn">Create account</NavLink>
                         <span class="text-center">
                             <span class="hidden md:inline">Have an account?</span>
-                            <NavLink href="/login" class="text-blue-600 hover:text-blue-500 hover:underline transition-all">Sign in</NavLink>
+                            <NavLink href="/login" class="text-blue-600 hover:text-blue-500 hover:underline">Sign in</NavLink>
                         </span>
                     </div>
                 </NotAuthorized>

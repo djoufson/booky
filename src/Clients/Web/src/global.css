@@ -10,6 +10,10 @@
     font-family: 'Pacifico', cursive;
 }
 
+.btn{
+    @apply bg-blue-500 text-white text-center p-2 md:p-4 hover:bg-blue-600 transition-all active:bg-blue-400;
+}
+
 .title{
     font-family: 'Pacifico', cursive;
 }
