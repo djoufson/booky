@@ -31,37 +31,37 @@ spec:
             configMapKeyRef:
               name: catalog-config
               key: urls
-        - name: ConnectionStrings__Postgresql
+        - name: ConnectionStrings.Postgresql
           valueFrom:
             configMapKeyRef:
               name: catalog-config
               key: postgres-conn-string
-        - name: ConnectionStrings__Redis
+        - name: ConnectionStrings.Redis
           valueFrom:
             configMapKeyRef:
               name: redis-config
               key: redis-url
-        - name: CatalogOptions__PicBaseUrl
+        - name: CatalogOptions.PicBaseUrl
           valueFrom:
             configMapKeyRef:
               name: catalog-config
               key: picture-url
-        - name: Postgresql__UserId
+        - name: Postgresql.UserId
           valueFrom:
             secretKeyRef:
               name: postgres-config
               key: postgres-user
-        - name: Postgresql__UserPassword
+        - name: Postgresql.UserPassword
           valueFrom:
             secretKeyRef:
               name: postgres-config
               key: postgres-password
-        - name: Postgresql__Server
+        - name: Postgresql.Server
           valueFrom:
             configMapKeyRef:
               name: postgres-config
               key: db-url
-        - name: Postgresql__Port
+        - name: Postgresql.Port
           value: "5432"
 ---
 apiVersion: v1
