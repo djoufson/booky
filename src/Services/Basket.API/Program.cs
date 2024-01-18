@@ -17,4 +17,10 @@ if (app.Environment.IsDevelopment())
 
 app.MapDefaultEndpoints();
 
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
 app.Run();
