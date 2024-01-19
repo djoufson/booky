@@ -6,7 +6,6 @@ using Identity.API.Services;
 using Identity.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Shared.EF.Database;
 using Shared.Extensions;
 
 namespace Identity.API.Extensions;
@@ -25,14 +24,6 @@ public static class Extensions
                 .Replace("[2]", options.Server)
                 .Replace("[3]", options.Port.ToString());
 
-
-            Console.WriteLine($"--> User ID: {options.UserId}");
-            Console.WriteLine($"--> Password: {options.UserPassword}");
-            Console.WriteLine($"--> Server: {options.Server}");
-            Console.WriteLine($"--> Port: {options.Port}");
-            Console.WriteLine($"--> Conn string: {npgslConn}");
-
-
             builder.Services.AddDbContext<ApplicationDbContext>(opt =>
             {
                 opt.UseNpgsql(npgslConn);
@@ -49,7 +40,9 @@ public static class Extensions
         builder.Services.AddAuthentication();
         builder.Services.AddAuthorization();
         builder.Services.AddScoped<UserIdMiddleware>();
-        builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+        builder.Services.AddOptions<JwtOptions>(JwtOptions.SectionName);
+        builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services
@@ -57,23 +50,5 @@ public static class Extensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
         return builder;
-    }
-}
-
-internal class ApplicationUsersSeeder() : IDbSeeder<ApplicationDbContext>
-{
-    public async Task SeedAsync(ApplicationDbContext context)
-    {
-        // Seed users
-        var user = new ApplicationUser()
-        {
-            Id = Guid.NewGuid().ToString(),
-            UserName = "admin",
-            Email = "admin@email.com",
-            NormalizedEmail = "ADMIN@EMAIL.COM"
-        };
-
-        await context.AddAsync(user);
-        await context.SaveChangesAsync();
     }
 }
