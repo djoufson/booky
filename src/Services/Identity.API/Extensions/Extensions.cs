@@ -67,7 +67,7 @@ public static class Extensions
 
         builder.Services.AddAuthorization();
         builder.Services.AddScoped<UserIdMiddleware>();
-        builder.Services.AddOptions<JwtOptions>(JwtOptions.SectionName);
+        builder.Services.Configure<JwtOptions>(configuration.GetRequiredSection(JwtOptions.SectionName));
         builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
         builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         builder.Services.AddEndpointsApiExplorer();
