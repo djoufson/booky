@@ -2,6 +2,8 @@ using Identity.API.Data;
 using Identity.API.Middlewares;
 using Identity.API.Models;
 using Identity.API.Options;
+using Identity.API.Services;
+using Identity.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared.EF.Database;
@@ -44,8 +46,10 @@ public static class Extensions
         }
 
         builder.AddServiceDefaults();
-        builder.Services.AddAuthorizationBuilder();
+        builder.Services.AddAuthentication();
+        builder.Services.AddAuthorization();
         builder.Services.AddScoped<UserIdMiddleware>();
+        builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services
@@ -58,9 +62,18 @@ public static class Extensions
 
 internal class ApplicationUsersSeeder() : IDbSeeder<ApplicationDbContext>
 {
-    public Task SeedAsync(ApplicationDbContext context)
+    public async Task SeedAsync(ApplicationDbContext context)
     {
         // Seed users
-        return Task.CompletedTask;
+        var user = new ApplicationUser()
+        {
+            Id = Guid.NewGuid().ToString(),
+            UserName = "admin",
+            Email = "admin@email.com",
+            NormalizedEmail = "ADMIN@EMAIL.COM"
+        };
+
+        await context.AddAsync(user);
+        await context.SaveChangesAsync();
     }
 }
