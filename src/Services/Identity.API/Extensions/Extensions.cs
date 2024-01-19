@@ -1,11 +1,15 @@
+using System.Text;
 using Identity.API.Data;
 using Identity.API.Middlewares;
 using Identity.API.Models;
 using Identity.API.Options;
 using Identity.API.Services;
 using Identity.API.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Shared.Extensions;
 
 namespace Identity.API.Extensions;
@@ -14,7 +18,7 @@ public static class Extensions
 {
     public static IHostApplicationBuilder AddIdentityServices(this IHostApplicationBuilder builder, IConfiguration configuration)
     {
-        if(builder.Environment.IsProduction())
+        if (builder.Environment.IsProduction())
         {
             var npgslConn = configuration.GetConnectionString("Postgresql")!;
             var options = configuration.GetRequiredSection(PostgresqlOptions.SectionName).Get<PostgresqlOptions>();
@@ -37,7 +41,30 @@ public static class Extensions
         }
 
         builder.AddServiceDefaults();
-        builder.Services.AddAuthentication();
+        builder.Services
+            .AddAuthentication()
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+            {
+                options.LoginPath = "/account/login";
+                options.LogoutPath = "/account/logout";
+            })
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, (options) =>
+            {
+                var jwtSettings = configuration.GetRequiredSection(JwtOptions.SectionName).Get<JwtOptions>()!;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ClockSkew = TimeSpan.Zero,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidAudience = jwtSettings.Audience,
+                    ValidateLifetime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
+                };
+                options.IncludeErrorDetails = true;
+            });
+
         builder.Services.AddAuthorization();
         builder.Services.AddScoped<UserIdMiddleware>();
         builder.Services.AddOptions<JwtOptions>(JwtOptions.SectionName);
