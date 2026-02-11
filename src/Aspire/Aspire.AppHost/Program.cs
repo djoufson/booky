@@ -1,6 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
-var postgres = builder.AddPostgresContainer("postgres");
-var redisCache = builder.AddRedisContainer("redis");
+var postgres = builder.AddPostgres("postgres");
+var redisCache = builder.AddRedis("redis");
 
 var catalogDb = postgres.AddDatabase("CatalogDb");
 var identityDb = postgres.AddDatabase("IdentityDb");
