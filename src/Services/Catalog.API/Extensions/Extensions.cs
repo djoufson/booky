@@ -41,7 +41,7 @@ internal static class Extensions
 
         else
         {
-            builder.AddRedis("redis");
+            builder.AddRedisClient("redis");
             builder.AddNpgsqlDbContext<CatalogDbContext>("CatalogDb");
             builder.Services.AddMigration<CatalogDbContext, BooksCatalogSeeder>();
         }

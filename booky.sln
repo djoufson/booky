@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "src\Services\Catalog.API\Catalog.API.csproj", "{CCC80AC6-748C-40FC-A377-AAC33F2B4EEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Shared\Shared.csproj", "{45FC83E5-B5DF-4A29-8B8C-62F8A32D44EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "src\Shared\Shared.csproj", "{45FC83E5-B5DF-4A29-8B8C-62F8A32D44EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0C39E468-0CDA-4692-A858-AA70C00506F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.UnitTests", "tests\Catalog.UnitTests\Catalog.UnitTests.csproj", "{754BD30B-5CBF-4B5D-BED6-0B851B560C18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.UnitTests", "tests\Catalog.UnitTests\Catalog.UnitTests.csproj", "{754BD30B-5CBF-4B5D-BED6-0B851B560C18}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aspire", "Aspire", "{BF5F2AE9-C06B-4EFB-B643-6E1462EAF94F}"
 EndProject
@@ -25,9 +25,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "src\Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{AB240B8F-A945-4358-B306-26797ADE2B8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "src\Clients\Web\Web.csproj", "{DEA53AB7-FBCA-46C9-90E1-B2F8B1C1631B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "src\Clients\Web\Web.csproj", "{DEA53AB7-FBCA-46C9-90E1-B2F8B1C1631B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadBalancer", "src\Services\LoadBalancer\LoadBalancer.csproj", "{8BAFD77A-431B-40EF-8D04-CCDC173B00EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadBalancer", "src\Services\LoadBalancer\LoadBalancer.csproj", "{8BAFD77A-431B-40EF-8D04-CCDC173B00EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "src\Services\Basket.API\Basket.API.csproj", "{5346E46D-DA85-4FEB-9825-DE15987B9A3D}"
 EndProject
