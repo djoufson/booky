@@ -12,7 +12,6 @@ public static class Extensions
         builder.AddNpgsqlDbContext<BasketDbContext>("BasketDb");
         builder.Services.AddMigration<BasketDbContext>();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
         builder.Services.AddAuthentication()
             .AddBearerToken()
             .AddCookie();

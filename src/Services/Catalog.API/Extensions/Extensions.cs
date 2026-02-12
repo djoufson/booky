@@ -54,7 +54,6 @@ internal static class Extensions
             options.AddPolicy(Cache.Policies.Authors, x => x.Tag(Cache.Tags.Authors).Cache());
         });
         builder.Services.AddScoped<ImageService>();
-        builder.Services.AddSwaggerGen();
         builder.Services.AddProblemDetails();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddOptions<CatalogOptions>()

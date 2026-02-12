@@ -47,7 +47,6 @@ public static class Extensions
         builder.Services.AddAuthorizationBuilder();
         builder.Services.AddScoped<UserIdMiddleware>();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
         builder.Services
             .AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
